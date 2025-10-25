@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
 
 export default function Navigation() {
@@ -25,62 +25,54 @@ export default function Navigation() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+          }`}
       >
         <div className="container mx-auto px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="text-2xl serif font-bold text-charcoal">
-              The Artisan Collective
+              Vermillo
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center gap-10 lg:gap-12">
               <Link
                 href="/collections/all"
-                className="text-charcoal hover:text-sage transition-colors"
+                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
               >
                 Collections
               </Link>
               <Link
                 href="/collections/art"
-                className="text-charcoal hover:text-sage transition-colors"
+                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
               >
                 Art
               </Link>
               <Link
                 href="/collections/clothing"
-                className="text-charcoal hover:text-sage transition-colors"
+                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
               >
                 Clothing
               </Link>
               <Link
                 href="/collections/accessories"
-                className="text-charcoal hover:text-sage transition-colors"
+                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
               >
                 Accessories
               </Link>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center space-x-6">
-              <button
-                className="text-charcoal hover:text-sage transition-colors"
-                aria-label="Search"
-              >
-                <Search size={20} />
-              </button>
-
+            <div className="flex items-center space-x-4">
               <button
                 onClick={toggleCart}
-                className="relative text-charcoal hover:text-sage transition-colors"
+                className="relative text-charcoal hover:text-sage transition-colors p-2"
                 aria-label="Shopping cart"
               >
-                <ShoppingBag size={20} />
+                <ShoppingBag size={24} />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-sienna text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-sienna text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
@@ -88,7 +80,7 @@ export default function Navigation() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden text-charcoal"
+                className="md:hidden text-charcoal p-2"
                 aria-label="Menu"
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

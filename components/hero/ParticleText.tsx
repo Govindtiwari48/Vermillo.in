@@ -21,7 +21,7 @@ export default function ParticleText() {
     setCanvasSize();
     window.addEventListener('resize', setCanvasSize);
 
-    // Particle class
+    // Particle class with faster animation
     class Particle {
       x: number;
       y: number;
@@ -30,31 +30,39 @@ export default function ParticleText() {
       size: number;
       speedX: number;
       speedY: number;
+      opacity: number;
 
       constructor(x: number, y: number, targetX: number, targetY: number) {
         this.x = x;
         this.y = y;
         this.targetX = targetX;
         this.targetY = targetY;
-        this.size = Math.random() * 2 + 1;
+        this.size = Math.random() * 1.5 + 0.5;
         this.speedX = 0;
         this.speedY = 0;
+        this.opacity = 0;
       }
 
       update() {
         const dx = this.targetX - this.x;
         const dy = this.targetY - this.y;
-        this.speedX += dx * 0.0002;
-        this.speedY += dy * 0.0002;
-        this.speedX *= 0.95;
-        this.speedY *= 0.95;
+        // Faster movement with higher acceleration
+        this.speedX += dx * 0.0008;
+        this.speedY += dy * 0.0008;
+        this.speedX *= 0.92;
+        this.speedY *= 0.92;
         this.x += this.speedX;
         this.y += this.speedY;
+
+        // Fade in faster
+        if (this.opacity < 1) {
+          this.opacity += 0.015;
+        }
       }
 
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = 'rgba(85, 107, 47, 0.8)';
+        ctx.fillStyle = `rgba(200, 92, 62, ${this.opacity * 0.85})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -62,34 +70,37 @@ export default function ParticleText() {
     }
 
     // Create text particles
-    const text = 'Wearable Art. Redefined.';
-    const fontSize = Math.min(window.innerWidth / 15, 80);
-    ctx.font = `bold ${fontSize}px 'Playfair Display', serif`;
-    ctx.fillStyle = '#333333';
+    const text = 'Wearable Art Defined';
+    const fontSize = Math.min(window.innerWidth / 12, 90);
+    ctx.font = `500 ${fontSize}px 'Cormorant Garamond', serif`;
+    ctx.fillStyle = '#C85C3E';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
     const textX = canvas.width / 2;
-    const textY = canvas.height / 2;
+    const textY = canvas.height / 2 - 80;
     ctx.fillText(text, textX, textY);
 
     // Get pixel data
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const particles: Particle[] = [];
 
-    // Sample pixels to create particles
-    const gap = 4;
+    // Sample pixels to create particles - denser sampling
+    const gap = 3;
     for (let y = 0; y < canvas.height; y += gap) {
       for (let x = 0; x < canvas.width; x += gap) {
         const index = (y * canvas.width + x) * 4;
         const alpha = imageData.data[index + 3];
-        
+
         if (alpha > 128) {
           const px = x;
           const py = y;
+          // Start particles from closer position for faster assembly
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 100 + Math.random() * 150;
           const particle = new Particle(
-            Math.random() * canvas.width,
-            Math.random() * canvas.height,
+            px + Math.cos(angle) * distance,
+            py + Math.sin(angle) * distance,
             px,
             py
           );
@@ -105,7 +116,7 @@ export default function ParticleText() {
     let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       particles.forEach((particle) => {
         particle.update();
         particle.draw();
@@ -114,10 +125,10 @@ export default function ParticleText() {
       animationId = requestAnimationFrame(animate);
     };
 
-    // Start animation after a short delay
+    // Start animation immediately
     setTimeout(() => {
       animate();
-    }, 300);
+    }, 100);
 
     return () => {
       window.removeEventListener('resize', setCanvasSize);
@@ -130,9 +141,8 @@ export default function ParticleText() {
       ref={canvasRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.5 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
       className="absolute inset-0 z-10 pointer-events-none"
     />
   );
 }
-

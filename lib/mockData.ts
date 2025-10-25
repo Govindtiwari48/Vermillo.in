@@ -5,28 +5,28 @@ export const collections: Collection[] = [
     id: '1',
     name: 'The Sculpture Garden',
     description: 'Handcrafted jewelry pieces inspired by natural forms',
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&h=1000',
     slug: 'sculpture-garden'
   },
   {
     id: '2',
     name: 'The Canvas Collection',
     description: 'Wearable art meets contemporary fashion',
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1558769132-cb1aea3c8347?q=80&w=800&h=1000',
     slug: 'canvas-collection'
   },
   {
     id: '3',
     name: 'Urban Minimalist',
     description: 'Clean lines and timeless elegance',
-    image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&h=1000',
     slug: 'urban-minimalist'
   },
   {
     id: '4',
     name: 'Artisan Accessories',
     description: 'Curated pieces to complete your look',
-    image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1524721696987-b9527df9e512?q=80&w=800&h=1000',
     slug: 'artisan-accessories'
   }
 ];
@@ -39,8 +39,8 @@ export const products: Product[] = [
     description: 'Hand-forged sterling silver ring inspired by celestial movements. Each piece is unique with subtle variations in texture.',
     category: 'accessories',
     images: [
-      'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80',
-      'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80'
+      'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600&h=800'
     ],
     sizes: ['5', '6', '7', '8', '9'],
     material: 'Sterling Silver',
@@ -55,8 +55,8 @@ export const products: Product[] = [
     description: 'Premium European linen shirt with hand-stitched details. Breathable and perfect for any season.',
     category: 'clothing',
     images: [
-      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80',
-      'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80'
+      'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600&h=800'
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: [
@@ -71,13 +71,13 @@ export const products: Product[] = [
   },
   {
     id: '3',
-    name: 'Minimalist Tote',
+    name: 'Leather Tote Bag',
     price: 165,
     description: 'Handcrafted leather tote with brass hardware. Vegetable-tanned leather ages beautifully over time.',
     category: 'accessories',
     images: [
-      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&q=80',
-      'https://images.unsplash.com/photo-1564422170194-896b89110ef8?w=800&q=80'
+      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600&h=800'
     ],
     colors: [
       { name: 'Tan', hex: '#D2B48C' },
@@ -94,8 +94,8 @@ export const products: Product[] = [
     description: 'Limited edition giclée print on museum-quality canvas. Signed and numbered by the artist.',
     category: 'art',
     images: [
-      'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80',
-      'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&q=80'
+      'https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?q=80&w=600&h=800'
     ],
     sizes: ['18x24"', '24x36"', '36x48"'],
     material: 'Giclée on Canvas',
@@ -109,8 +109,8 @@ export const products: Product[] = [
     description: 'Oversized wool blend coat with a relaxed fit. Italian fabric with exceptional drape.',
     category: 'clothing',
     images: [
-      'https://images.unsplash.com/photo-1539533113708-7c9b0c2e3438?w=800&q=80',
-      'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80'
+      'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&h=800'
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: [
@@ -123,13 +123,13 @@ export const products: Product[] = [
   },
   {
     id: '6',
-    name: 'Ceramic Vase Set',
+    name: 'Handmade Ceramic Vases',
     price: 285,
     description: 'Set of three handthrown ceramic vases with reactive glaze. Each piece is one-of-a-kind.',
     category: 'art',
     images: [
-      'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&q=80',
-      'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80'
+      'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=600&h=800'
     ],
     material: 'Ceramic',
     inStock: true,
@@ -137,13 +137,13 @@ export const products: Product[] = [
   },
   {
     id: '7',
-    name: 'Silk Scarf',
+    name: 'Silk Designer Scarf',
     price: 135,
     description: 'Hand-painted silk scarf with abstract botanical motifs. Each scarf is a wearable work of art.',
     category: 'accessories',
     images: [
-      'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&q=80',
-      'https://images.unsplash.com/photo-1591790561671-1f39afd5b9fa?w=800&q=80'
+      'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=600&h=800'
     ],
     colors: [
       { name: 'Blush', hex: '#FFC0CB' },
@@ -156,22 +156,92 @@ export const products: Product[] = [
   },
   {
     id: '8',
-    name: 'Wide Leg Trousers',
-    price: 295,
-    description: 'High-waisted wide leg trousers in premium cotton twill. Tailored for an elegant silhouette.',
+    name: 'Premium Leather Shoes',
+    price: 395,
+    description: 'Handcrafted leather oxford shoes with Goodyear welt construction. Made in Italy with premium full-grain leather.',
+    category: 'accessories',
+    images: [
+      'https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?q=80&w=600&h=800'
+    ],
+    sizes: ['7', '8', '9', '10', '11', '12'],
+    colors: [
+      { name: 'Brown', hex: '#8B4513' },
+      { name: 'Black', hex: '#000000' },
+      { name: 'Tan', hex: '#D2B48C' }
+    ],
+    material: 'Full-Grain Leather',
+    inStock: true,
+    trending: true
+  },
+  {
+    id: '9',
+    name: 'Designer Fashion Dress',
+    price: 345,
+    description: 'Elegant midi dress in premium silk blend. Timeless design with modern sophistication.',
     category: 'clothing',
     images: [
-      'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80',
-      'https://images.unsplash.com/photo-1624206112918-f140f087f9b5?w=800&q=80'
+      'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1572804013427-4d7ca7268217?q=80&w=600&h=800'
     ],
-    sizes: ['24', '26', '28', '30', '32'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: [
       { name: 'Ivory', hex: '#FFFFF0' },
-      { name: 'Black', hex: '#000000' },
-      { name: 'Olive', hex: '#556B2F' }
+      { name: 'Navy', hex: '#000080' },
+      { name: 'Burgundy', hex: '#800020' }
     ],
-    material: 'Cotton Twill',
-    inStock: true
+    material: 'Silk Blend',
+    inStock: true,
+    featured: true
+  },
+  {
+    id: '10',
+    name: 'Handcrafted Leather Duffel',
+    price: 485,
+    description: 'Vintage-style leather duffel bag with solid brass hardware. Perfect for weekend getaways.',
+    category: 'accessories',
+    images: [
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?q=80&w=600&h=800'
+    ],
+    colors: [
+      { name: 'Cognac', hex: '#9F5240' },
+      { name: 'Dark Brown', hex: '#654321' }
+    ],
+    material: 'Full-Grain Leather',
+    inStock: true,
+    trending: true,
+    featured: true
+  },
+  {
+    id: '11',
+    name: 'Abstract Wall Art',
+    price: 580,
+    description: 'Original acrylic painting on canvas. Bold contemporary design by emerging artist.',
+    category: 'art',
+    images: [
+      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&w=600&h=800'
+    ],
+    sizes: ['24x36"', '36x48"', '48x60"'],
+    material: 'Acrylic on Canvas',
+    inStock: true,
+    featured: true
+  },
+  {
+    id: '12',
+    name: 'Minimalist Sketch Collection',
+    price: 220,
+    description: 'Set of three framed minimalist sketches. Museum-quality paper with archival ink.',
+    category: 'art',
+    images: [
+      'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=600&h=800',
+      'https://images.unsplash.com/photo-1582561924811-71c32f7d1219?q=80&w=600&h=800'
+    ],
+    sizes: ['12x16"', '16x20"'],
+    material: 'Archival Paper',
+    inStock: true,
+    trending: true
   }
 ];
 

@@ -1,16 +1,16 @@
-# The Artisan Collective
+# Vermillo
 
 A hyper-dynamic, visually stunning e-commerce website for a high-end brand selling curated art, artisanal clothing, and unique accessories.
 
 ## Features
 
-✨ **Stunning Hero Section** with particle text animation and parallax effects
-🛍️ **Product Catalog** with advanced filtering and sorting
-🖼️ **Product Detail Pages** with zoom-on-hover image gallery
-🛒 **Dynamic Shopping Cart** with slide-out panel
-💳 **Multi-step Checkout** with progress tracking
-📱 **Fully Responsive** design for all devices
-🎨 **Beautiful UI/UX** with smooth animations using Framer Motion
+**Stunning Hero Section** with particle text animation and parallax effects
+**Product Catalog** with advanced filtering and sorting
+**Product Detail Pages** with zoom-on-hover image gallery
+**Dynamic Shopping Cart** with slide-out panel
+**Multi-step Checkout** with progress tracking
+**Fully Responsive** design for all devices
+**Beautiful UI/UX** with smooth animations using Framer Motion
 
 ## Tech Stack
 
@@ -44,7 +44,7 @@ npm start
 ## Project Structure
 
 ```
-artisan-collective/
+vermillo/
 ├── app/                      # Next.js App Router pages
 │   ├── collections/         # Product collection pages
 │   ├── products/            # Product detail pages
@@ -110,10 +110,10 @@ Edit `lib/mockData.ts` to add or modify products:
 
 ## Performance
 
-- ✅ Optimized images with Next.js Image component
-- ✅ Code splitting with dynamic imports
-- ✅ Smooth 60fps animations
-- ✅ Lazy loading for improved performance
+- Optimized images with Next.js Image component
+- Code splitting with dynamic imports
+- Smooth 60fps animations
+- Lazy loading for improved performance
 
 ## Browser Support
 
@@ -128,4 +128,10 @@ This project is a demo and is provided as-is for educational purposes.
 
 ---
 
-Built with ❤️ for exceptional user experiences.
+Built for exceptional user experiences.
+
+---
+
+**Vermillo** - Wearable Art Defined.
+
+*Where artistry meets contemporary elegance. Crafting exceptional experiences through curated design and timeless aesthetics.*

@@ -4,28 +4,61 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Button from '../ui/Button';
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 
 export default function BrandManifesto() {
+  const values = [
+    'Handpicked by artisans',
+    'Sustainable materials',
+    'Limited editions',
+    'Global shipping',
+  ];
+
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="py-28 md:py-36 lg:py-44 bg-cream relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-soft-beige/30 -z-0"></div>
+
+      <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20 lg:gap-24 items-center">
           {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[600px] rounded-lg overflow-hidden shadow-2xl"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80"
-              alt="Artisan at work"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+            <div className="relative h-[700px] rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&h=1000"
+                alt="Artisan at work"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent"></div>
+
+              {/* Floating badge */}
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
+                className="absolute top-8 right-8 bg-cream px-6 py-4 rounded-2xl shadow-xl"
+              >
+                <div className="text-terracotta text-3xl font-bold serif">500+</div>
+                <div className="text-charcoal/60 text-sm mt-1">Curated Items</div>
+              </motion.div>
+            </div>
+
+            {/* Decorative element */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.7 }}
+              className="absolute -bottom-8 -left-8 w-64 h-64 bg-terracotta/10 rounded-full blur-3xl -z-10"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-sage/20 to-transparent" />
           </motion.div>
 
           {/* Content */}
@@ -33,32 +66,87 @@ export default function BrandManifesto() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-8 md:space-y-10"
           >
-            <h2 className="text-4xl md:text-5xl serif font-bold text-charcoal leading-tight">
-              Where Artistry Meets Everyday Life
-            </h2>
-            <div className="space-y-4 text-charcoal/70 text-lg leading-relaxed">
-              <p>
-                <strong className="text-charcoal">The Artisan Collective</strong> is more than
+            <div>
+              <motion.span
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-8 block"
+              >
+                Our Philosophy
+              </motion.span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl serif font-normal text-charcoal leading-tight mb-8 md:mb-10 relative">
+                Where Artistry Meets Everyday Life
+                <span className="absolute -bottom-3 md:-bottom-4 left-0 w-24 h-[3px] bg-gradient-to-r from-terracotta to-gold"></span>
+              </h2>
+            </div>
+
+            <div className="space-y-7 md:space-y-8 text-charcoal/70 text-base md:text-lg leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="font-light"
+              >
+                <strong className="text-charcoal font-semibold">Vermillo</strong> is more than
                 a brand; it's a celebration of human creativity. We bridge the gap between the
                 artist's studio and your wardrobe.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="font-light"
+              >
                 Every piece in our collection tells a story—of skilled hands, thoughtful design,
                 and materials sourced with care. We believe that what you wear and surround
                 yourself with should inspire you daily.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="font-light"
+              >
                 Our mission is to make exceptional craftsmanship accessible to those who value
-                authenticity, quality, and timeless beauty. Each item is selected not just for
-                its aesthetic appeal, but for its ability to enhance your life and express your
-                unique identity.
-              </p>
+                authenticity, quality, and timeless beauty.
+              </motion.p>
             </div>
 
-            <div className="flex gap-4 pt-4">
+            {/* Values */}
+            <motion.div
+              className="grid grid-cols-2 gap-5 pt-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              {values.map((value, index) => (
+                <motion.div
+                  key={value}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8 + index * 0.1 }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="w-6 h-6 rounded-full bg-terracotta/10 flex items-center justify-center flex-shrink-0">
+                    <Check className="text-terracotta" size={14} strokeWidth={3} />
+                  </div>
+                  <span className="text-charcoal/80 text-base">{value}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              className="flex gap-5 pt-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+            >
               <Link href="/collections/all">
                 <Button size="lg">Discover Our Story</Button>
               </Link>
@@ -67,11 +155,10 @@ export default function BrandManifesto() {
                   Learn More
                 </Button>
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
-
