@@ -4,7 +4,7 @@ import { CartProvider } from '@/lib/cartContext';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/ui/Footer';
 import CartSidebar from '@/components/cart/CartSidebar';
-import ClientLayout from '@/components/ui/ClientLayout';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export const metadata: Metadata = {
   title: 'Vermillo | Wearable Art Defined',
@@ -27,12 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
-          <ClientLayout>
-            <Navigation />
-            <main>{children}</main>
-            <Footer />
-            <CartSidebar />
-          </ClientLayout>
+          <LoadingScreen />
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+          <CartSidebar />
         </CartProvider>
       </body>
     </html>
