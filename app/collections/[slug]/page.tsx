@@ -58,7 +58,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
   return (
     <div className="min-h-screen pt-24">
       {/* Header */}
-      <div className="bg-beige py-16">
+      <div className="bg-gradient-light py-16">
         <div className="container mx-auto px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

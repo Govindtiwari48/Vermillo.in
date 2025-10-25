@@ -15,9 +15,9 @@ export default function BrandManifesto() {
   ];
 
   return (
-    <section className="py-28 md:py-36 lg:py-44 bg-cream relative overflow-hidden">
+    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light relative overflow-hidden">
       {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-soft-beige/30 -z-0"></div>
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-gray-200/30 -z-0"></div>
 
       <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20 lg:gap-24 items-center">
@@ -79,7 +79,7 @@ export default function BrandManifesto() {
               >
                 Our Philosophy
               </motion.span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl serif font-normal text-charcoal leading-tight mb-8 md:mb-10 relative">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal leading-tight mb-6 md:mb-8 relative">
                 Where Artistry Meets Everyday Life
                 <span className="absolute -bottom-3 md:-bottom-4 left-0 w-24 h-[3px] bg-gradient-to-r from-terracotta to-gold"></span>
               </h2>

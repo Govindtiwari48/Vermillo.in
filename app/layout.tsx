@@ -1,10 +1,26 @@
 import type { Metadata } from 'next';
+import { Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/lib/cartContext';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/ui/Footer';
 import CartSidebar from '@/components/cart/CartSidebar';
-import LoadingScreen from '@/components/ui/LoadingScreen';
+import ClientLayout from '@/components/ui/ClientLayout';
+
+// Configure Google Fonts with Next.js optimization
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Vermillo | Wearable Art Defined',
@@ -24,14 +40,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${cormorantGaramond.variable} ${inter.variable}`}>
       <body>
         <CartProvider>
-          <LoadingScreen />
-          <Navigation />
-          <main>{children}</main>
-          <Footer />
-          <CartSidebar />
+          <ClientLayout>
+            <Navigation />
+            <main>{children}</main>
+            <Footer />
+            <CartSidebar />
+          </ClientLayout>
         </CartProvider>
       </body>
     </html>

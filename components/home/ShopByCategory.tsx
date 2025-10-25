@@ -31,9 +31,9 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className="py-28 md:py-36 lg:py-44 bg-deep-charcoal text-cream relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
+    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light text-charcoal relative overflow-hidden">
+      {/* Background pattern - lighter for white background */}
+      <div className="absolute inset-0 opacity-3">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sage rounded-full blur-3xl"></div>
       </div>
@@ -44,26 +44,26 @@ export default function ShopByCategory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-20 md:mb-24 lg:mb-28"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-8 block"
+            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-6 block"
           >
             Browse Collections
           </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl serif font-normal mb-8 md:mb-10">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal mb-6 md:mb-8">
             Shop by Category
           </h2>
-          <p className="text-cream/65 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4 font-light">
+          <p className="text-charcoal/65 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4 font-light">
             Explore our carefully curated categories designed for the discerning collector
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {categories.map((category, index) => (
             <motion.div
               key={category.name}
@@ -78,8 +78,8 @@ export default function ShopByCategory() {
             >
               <Link href={category.href}>
                 <motion.div
-                  className="group relative h-[500px] overflow-hidden rounded-2xl shadow-2xl"
-                  whileHover={{ y: -12 }}
+                  className="group relative h-[350px] overflow-hidden rounded-2xl shadow-lg"
+                  whileHover={{ y: -8 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <Image
@@ -91,10 +91,10 @@ export default function ShopByCategory() {
                   />
 
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal via-charcoal/60 to-transparent group-hover:from-deep-charcoal/95 group-hover:via-charcoal/80 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent group-hover:from-charcoal/90 group-hover:via-charcoal/60 transition-all duration-500" />
 
                   {/* Content */}
-                  <div className="absolute inset-0 p-8 flex flex-col justify-between">
+                  <div className="absolute inset-0 p-6 flex flex-col justify-between">
                     {/* Top badge */}
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
@@ -102,7 +102,7 @@ export default function ShopByCategory() {
                       transition={{ delay: 0.3 + index * 0.1 }}
                       className="self-start"
                     >
-                      <span className={`bg-${category.color}/20 backdrop-blur-sm border border-${category.color}/30 text-cream text-xs px-4 py-2 rounded-full font-medium`}>
+                      <span className={`bg-${category.color}/20 backdrop-blur-sm border border-${category.color}/30 text-cream text-xs px-3 py-1.5 rounded-full font-medium`}>
                         Collection
                       </span>
                     </motion.div>
@@ -110,15 +110,15 @@ export default function ShopByCategory() {
                     {/* Bottom content */}
                     <div>
                       <motion.div
-                        className="mb-6"
+                        className="mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 + index * 0.1 }}
                       >
-                        <h3 className="text-5xl serif font-normal mb-3 group-hover:text-terracotta transition-colors duration-300">
+                        <h3 className="text-3xl serif font-semibold mb-2 group-hover:text-terracotta transition-colors duration-300">
                           {category.name}
                         </h3>
-                        <p className="text-cream/70 text-base">
+                        <p className="text-cream/70 text-sm">
                           {category.description}
                         </p>
                       </motion.div>
@@ -155,7 +155,7 @@ export default function ShopByCategory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mt-24 md:mt-28 lg:mt-32 pt-20 md:pt-24 border-t border-cream/10"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-20 lg:mt-24 pt-12 md:pt-16 border-t border-charcoal/10"
         >
           {[
             { label: 'Artisan Partners', value: '50+' },
@@ -169,10 +169,10 @@ export default function ShopByCategory() {
               transition={{ delay: 0.7 + index * 0.1 }}
               className="text-center"
             >
-              <div className="text-5xl serif font-normal text-terracotta mb-2">
+              <div className="text-3xl serif font-semibold text-terracotta mb-2">
                 {stat.value}
               </div>
-              <div className="text-cream/60 text-sm tracking-wide">
+              <div className="text-charcoal/60 text-sm tracking-wide">
                 {stat.label}
               </div>
             </motion.div>

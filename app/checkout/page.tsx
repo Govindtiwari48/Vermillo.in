@@ -70,7 +70,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-beige/30">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-light">
       <div className="container mx-auto px-8 max-w-6xl">
         {/* Progress Bar */}
         <div className="mb-12">
@@ -79,24 +79,21 @@ export default function CheckoutPage() {
               <div key={step.id} className="flex-1 flex items-center">
                 <div className="flex items-center w-full">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      index <= currentStepIndex
+                    className={`w-10 h-10 rounded-full flex items-center justify-center ${index <= currentStepIndex
                         ? 'bg-sage text-white'
                         : 'bg-white text-charcoal/40 border-2 border-charcoal/20'
-                    }`}
+                      }`}
                   >
                     {index < currentStepIndex ? <Check size={20} /> : index + 1}
                   </div>
                   <div
-                    className={`flex-1 h-1 mx-4 ${
-                      index < currentStepIndex ? 'bg-sage' : 'bg-charcoal/20'
-                    } ${index === steps.length - 1 ? 'hidden' : ''}`}
+                    className={`flex-1 h-1 mx-4 ${index < currentStepIndex ? 'bg-sage' : 'bg-charcoal/20'
+                      } ${index === steps.length - 1 ? 'hidden' : ''}`}
                   />
                 </div>
                 <span
-                  className={`absolute mt-16 -ml-6 text-sm ${
-                    index <= currentStepIndex ? 'text-charcoal font-semibold' : 'text-charcoal/40'
-                  }`}
+                  className={`absolute mt-16 -ml-6 text-sm ${index <= currentStepIndex ? 'text-charcoal font-semibold' : 'text-charcoal/40'
+                    }`}
                 >
                   {step.label}
                 </span>
@@ -307,7 +304,7 @@ export default function CheckoutPage() {
               <div className="space-y-4 mb-6">
                 {cart.map((item) => (
                   <div key={item.product.id} className="flex gap-3">
-                    <div className="relative w-16 h-20 bg-beige rounded overflow-hidden flex-shrink-0">
+                    <div className="relative w-16 h-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
                       <Image
                         src={item.product.images[0]}
                         alt={item.product.name}

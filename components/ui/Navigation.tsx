@@ -9,6 +9,7 @@ import { useCart } from '@/lib/cartContext';
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showLogo, setShowLogo] = useState(false);
   const { cartCount, toggleCart } = useCart();
 
   useEffect(() => {
@@ -20,44 +21,64 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Show logo after hero animation completes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLogo(true);
+    }, 2500); // Show slightly after hero logo animation
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
-          }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md"
       >
         <div className="container mx-auto px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="text-2xl serif font-bold text-charcoal">
-              Vermillo
-            </Link>
+            {/* Logo - Fades in after hero animation */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{
+                opacity: showLogo ? 1 : 0,
+                x: showLogo ? 0 : -20
+              }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+            >
+              <Link href="/" className="text-2xl serif font-bold transition-colors duration-300 text-black">
+                Vermillo
+              </Link>
+            </motion.div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-10 lg:gap-12">
               <Link
                 href="/collections/all"
-                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
+                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Collections
               </Link>
               <Link
                 href="/collections/art"
-                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
+                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Art
               </Link>
               <Link
                 href="/collections/clothing"
-                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
+                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Clothing
               </Link>
               <Link
                 href="/collections/accessories"
-                className="text-base font-medium text-charcoal hover:text-terracotta transition-colors duration-300 whitespace-nowrap"
+                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Accessories
               </Link>
@@ -67,7 +88,7 @@ export default function Navigation() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={toggleCart}
-                className="relative text-charcoal hover:text-sage transition-colors p-2"
+                className="relative hover:text-sage transition-colors p-2 text-black"
                 aria-label="Shopping cart"
               >
                 <ShoppingBag size={24} />
@@ -80,7 +101,7 @@ export default function Navigation() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden text-charcoal p-2"
+                className="md:hidden p-2 text-black"
                 aria-label="Menu"
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

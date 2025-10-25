@@ -1,67 +1,74 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function LoadingScreen() {
-    const [isLoading, setIsLoading] = useState(true);
+interface LoadingScreenProps {
+    onComplete: () => void;
+}
+
+const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     const [isVisible, setIsVisible] = useState(true);
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const hasPlayed = useRef(false);
+    const [animationComplete, setAnimationComplete] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
 
     useEffect(() => {
-        // Start playing the video when component mounts
-        if (videoRef.current && !hasPlayed.current) {
-            videoRef.current.play().catch((error) => {
-                console.error('Error playing video:', error);
-                // If video fails to play, hide the loading screen after a short delay
-                setTimeout(() => {
-                    handleVideoEnd();
-                }, 1000);
-            });
-            hasPlayed.current = true;
-        }
-    }, []);
+        // Start the rolling animation after a short delay
+        const animationTimer = setTimeout(() => {
+            setAnimationComplete(true);
+        }, 500); // Start animation after 0.2s
 
-    const handleVideoEnd = () => {
-        setIsLoading(false);
-        // Add a small delay before hiding to ensure smooth transition
-        setTimeout(() => {
+        // Start fade out after 1.2 seconds
+        const fadeTimer = setTimeout(() => {
+            setFadeOut(true);
+        }, 2500);
+
+        // Hide loading screen after 1.5 seconds total
+        const hideTimer = setTimeout(() => {
             setIsVisible(false);
-        }, 500);
-    };
+            onComplete();
+        }, 3000);
 
-    const handleVideoError = () => {
-        // If video fails to load, hide the loading screen
-        handleVideoEnd();
-    };
+        return () => {
+            clearTimeout(animationTimer);
+            clearTimeout(fadeTimer);
+            clearTimeout(hideTimer);
+        };
+    }, [onComplete]);
 
-    if (!isVisible) {
-        return null;
-    }
+    if (!isVisible) return null;
 
     return (
-        <div
-            className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-opacity duration-700 ease-in-out ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                }`}
-        >
-            <video
-                ref={videoRef}
-                className="w-full h-full object-contain"
-                onEnded={handleVideoEnd}
-                onError={handleVideoError}
-                onLoadStart={() => {
-                    // Ensure video is ready
-                    if (videoRef.current) {
-                        videoRef.current.volume = 0;
-                    }
-                }}
-                muted
-                playsInline
-                preload="auto"
-            >
-                <source src="/videos/loading-video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="text-center">
+                <div className="rolling-text-container">
+                    {['V', 'E', 'R', 'M', 'I', 'L', 'L', 'O'].map((letter, index) => (
+                        <span
+                            key={index}
+                            className={`rolling-letter ${animationComplete ? 'animate-roll' : ''}`}
+                            style={{
+                                animationDelay: `${index * 0.08}s`,
+                                animationDuration: '0.6s',
+                            }}
+                        >
+                            {letter}
+                        </span>
+                    ))}
+                </div>
+                <div className="mt-12">
+                    <div className="loading-dots">
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                    </div>
+                </div>
+                {/* <div className="mt-6">
+                    <p className="text-sm text-gray-500 font-light tracking-wider">
+                        WEARABLE ART DEFINED
+                    </p>
+                </div> */}
+            </div>
         </div>
     );
-}
+};
+
+export default LoadingScreen;

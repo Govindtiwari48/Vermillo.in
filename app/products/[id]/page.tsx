@@ -48,14 +48,14 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-light">
       <div className="container mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Left: Image Gallery */}
           <div className="space-y-4">
             {/* Main Image */}
             <motion.div
-              className="relative aspect-[3/4] bg-beige rounded-lg overflow-hidden cursor-zoom-in"
+              className="relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden cursor-zoom-in"
               onMouseEnter={() => setIsZooming(true)}
               onMouseLeave={() => setIsZooming(false)}
               onMouseMove={handleMouseMove}
@@ -68,9 +68,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 style={
                   isZooming
                     ? {
-                        transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                        transform: 'scale(2)',
-                      }
+                      transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                      transform: 'scale(2)',
+                    }
                     : {}
                 }
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -83,9 +83,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`relative aspect-square bg-beige rounded-md overflow-hidden ${
-                    selectedImage === index ? 'ring-2 ring-sage' : ''
-                  }`}
+                  className={`relative aspect-square bg-gray-100 rounded-md overflow-hidden ${selectedImage === index ? 'ring-2 ring-sage' : ''
+                    }`}
                 >
                   <Image
                     src={image}
@@ -119,11 +118,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`px-6 py-3 border-2 rounded-md transition-all ${
-                        selectedSize === size
+                      className={`px-6 py-3 border-2 rounded-md transition-all ${selectedSize === size
                           ? 'border-sage bg-sage text-white'
                           : 'border-charcoal/20 hover:border-sage'
-                      }`}
+                        }`}
                     >
                       {size}
                     </button>
@@ -143,11 +141,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                     <button
                       key={color.name}
                       onClick={() => setSelectedColor(color.name)}
-                      className={`w-12 h-12 rounded-full border-2 transition-all ${
-                        selectedColor === color.name
+                      className={`w-12 h-12 rounded-full border-2 transition-all ${selectedColor === color.name
                           ? 'border-sage scale-110'
                           : 'border-charcoal/20 hover:scale-110'
-                      }`}
+                        }`}
                       style={{ backgroundColor: color.hex }}
                       title={color.name}
                     />

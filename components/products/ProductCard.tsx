@@ -146,7 +146,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.category}
             </span>
           </div>
-          <h3 className="serif text-xl font-medium text-charcoal mb-3 group-hover:text-terracotta transition-colors leading-snug">
+          <h3 className="serif text-xl font-semibold text-charcoal mb-3 group-hover:text-terracotta transition-colors leading-snug">
             {product.name}
           </h3>
           <div className="flex items-center justify-between mb-1">

@@ -1,22 +1,44 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import ParticleText from './ParticleText';
 import { Palette, Shirt, Gem } from 'lucide-react';
 
-const HERO_VIDEOS = [
-  'https://assets.mixkit.co/videos/preview/mixkit-person-arranging-a-vase-with-flowers-2795-large.mp4',
-  'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-person-working-with-clay-10583-large.mp4',
-  'https://assets.mixkit.co/videos/preview/mixkit-person-sewing-clothes-2794-large.mp4',
-  'https://assets.mixkit.co/videos/preview/mixkit-person-making-jewelry-2796-large.mp4',
+// Professional slideshow images - high-quality artisan/craft themed
+const SLIDESHOW_IMAGES = [
+  {
+    url: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1920&q=80',
+    title: 'Handcrafted Ceramics',
+    subtitle: 'Artisan pottery and stoneware'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1558769132-cb1aea3c8347?w=1920&q=80',
+    title: 'Textile Arts',
+    subtitle: 'Woven with precision and care'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1920&q=80',
+    title: 'Fashion Forward',
+    subtitle: 'Contemporary apparel design'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1524293368230-73d8bf0143a0?w=1920&q=80',
+    title: 'Leather Craft',
+    subtitle: 'Premium handmade accessories'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1920&q=80',
+    title: 'Artisan Jewelry',
+    subtitle: 'Unique statement pieces'
+  }
 ];
 
 export default function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  const [videoElement, setVideoElement] = useState<HTMLVideoElement | null>(null);
+  const [logoAnimationComplete, setLogoAnimationComplete] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -30,145 +52,204 @@ export default function HeroSection() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const toggleVideo = () => {
-    if (videoElement) {
-      if (isVideoPlaying) {
-        videoElement.pause();
-      } else {
-        videoElement.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
-    }
-  };
+  // Trigger logo animation completion
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLogoAnimationComplete(true);
+      setIsLoading(false);
+    }, 2000); // Logo moves after 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    if (!logoAnimationComplete) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDESHOW_IMAGES.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [logoAnimationComplete]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image Layer */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
-        }}
-      >
-        {/* Hero Background Image */}
-        <div
-          className="absolute inset-0 w-full h-full"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1558769132-cb1aea3c8347?w=1920&h=1080&fit=crop)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'brightness(0.8) contrast(1.05)'
-          }}
-        />
+      {/* Professional Slideshow Background */}
+      <AnimatePresence mode="wait">
+        {logoAnimationComplete && (
+          <div className="absolute inset-0 z-0">
+            {SLIDESHOW_IMAGES.map((image, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{
+                  opacity: currentSlide === index ? 1 : 0,
+                  scale: currentSlide === index ? 1 : 1.1,
+                }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{
+                  duration: 1.5,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="absolute inset-0 w-full h-full"
+                style={{
+                  backgroundImage: `url(${image.url})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  filter: 'brightness(0.85) contrast(1.05)',
+                  zIndex: currentSlide === index ? 1 : 0,
+                }}
+              />
+            ))}
 
-        {/* Gradient overlay - lighter */}
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-transparent to-charcoal/30" />
+            {/* Elegant gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-[2]" />
+          </div>
+        )}
+      </AnimatePresence>
 
-        {/* Vignette effect - lighter */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-charcoal/20" />
-      </motion.div>
-
-      {/* Decorative Elements */}
-      <motion.div
-        className="absolute inset-0 opacity-20 z-[1]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.2 }}
-        transition={{ duration: 2 }}
-      >
-        <div className="absolute top-20 right-20 w-96 h-96 bg-terracotta/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-sage/20 rounded-full blur-3xl"></div>
-      </motion.div>
-
-      {/* Particle Text Layer */}
-      <ParticleText />
-
-      {/* Content Layer */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
-
-        {/* Brand Name Below Particle Text */}
+      {/* Initial Background (before logo animation) */}
+      {!logoAnimationComplete && (
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 1.2,
-            ease: [0.22, 1, 0.36, 1]
-          }}
-          style={{
-            transform: `translate(${mousePosition.x * 0.15}px, ${mousePosition.y * 0.15}px)`,
-          }}
-          className="mt-24"
+          className="absolute inset-0 z-0"
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="text-3xl md:text-4xl serif font-light text-cream tracking-[0.3em] uppercase text-center">
-            Vermillo
-          </h2>
+          <div
+            className="absolute inset-0 w-full h-full"
+            style={{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1558769132-cb1aea3c8347?w=1920&q=80)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'brightness(0.7) contrast(1.02)'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50" />
         </motion.div>
+      )}
 
-        {/* Featured Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.6,
-            delay: 1.8,
-            ease: [0.22, 1, 0.36, 1]
-          }}
-          className="absolute bottom-32 left-0 right-0 flex justify-center gap-16 text-sm"
-        >
-          {[
-            { name: 'Curated Art', count: '120+ pieces', icon: Palette },
-            { name: 'Apparel', count: '85+ items', icon: Shirt },
-            { name: 'Accessories', count: '45+ pieces', icon: Gem },
-          ].map((category, index) => (
+      {/* Animated Logo - Center to Navbar */}
+      <AnimatePresence>
+        {!logoAnimationComplete && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{
+              opacity: 0,
+              x: -window.innerWidth / 2 + 80, // Move to left navbar position
+              y: -window.innerHeight / 2 + 40,
+              scale: 0.3,
+            }}
+            transition={{
+              opacity: { duration: 0.3, delay: 0 },
+              x: { duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 },
+              y: { duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 },
+              scale: { duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 },
+            }}
+            className="absolute inset-0 z-30 flex items-center justify-center"
+          >
+            <h1 className="text-6xl md:text-8xl lg:text-9xl serif font-bold text-white tracking-[0.2em] uppercase drop-shadow-2xl">
+              Vermillo
+            </h1>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Slideshow Content Overlay */}
+      <AnimatePresence mode="wait">
+        {logoAnimationComplete && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4"
+          >
+            {/* Slide Title and Subtitle */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="text-center space-y-6"
+              >
+                <h2 className="text-5xl md:text-7xl lg:text-8xl serif font-bold text-white tracking-wide drop-shadow-2xl">
+                  {SLIDESHOW_IMAGES[currentSlide].title}
+                </h2>
+                <p className="text-xl md:text-2xl lg:text-3xl font-light text-white/90 tracking-[0.2em] uppercase drop-shadow-xl">
+                  {SLIDESHOW_IMAGES[currentSlide].subtitle}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Slide Progress Indicators */}
             <motion.div
-              key={category.name}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 2 + index * 0.1,
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className="text-center hidden sm:block group cursor-pointer"
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="absolute bottom-20 left-0 right-0 flex justify-center gap-3"
             >
-              <div className="text-cream/80 mb-2 group-hover:scale-110 transition-transform duration-300 flex justify-center">
-                <category.icon size={24} />
-              </div>
-              <div className="text-cream font-medium tracking-wide">{category.name}</div>
-              <div className="text-cream/60 text-xs mt-1">{category.count}</div>
+              {SLIDESHOW_IMAGES.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className="group relative"
+                  aria-label={`Go to slide ${index + 1}`}
+                >
+                  <div
+                    className={`h-1 transition-all duration-500 rounded-full ${currentSlide === index
+                      ? 'w-16 bg-white'
+                      : 'w-8 bg-white/40 hover:bg-white/60'
+                      }`}
+                  >
+                    {currentSlide === index && (
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-white to-white/80 rounded-full"
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 5, ease: 'linear' }}
+                      />
+                    )}
+                  </div>
+                </button>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
-      </div>
 
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Floating Elements */}
-      <motion.div
-        className="absolute top-40 left-20 z-10 hidden lg:block"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 0.6, scale: 1 }}
-        transition={{ delay: 2, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          transform: `translate(${mousePosition.x * -0.8}px, ${mousePosition.y * -0.8}px)`,
-        }}
-      >
-        <div className="w-3 h-3 bg-gold rounded-full shadow-lg" />
-      </motion.div>
+      {/* Subtle Floating Elements */}
+      {logoAnimationComplete && (
+        <>
+          <motion.div
+            className="absolute top-40 left-20 z-10 hidden lg:block"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.4, scale: 1 }}
+            transition={{ delay: 1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              transform: `translate(${mousePosition.x * -0.5}px, ${mousePosition.y * -0.5}px)`,
+            }}
+          >
+            <div className="w-4 h-4 bg-white/60 rounded-full shadow-xl backdrop-blur-sm" />
+          </motion.div>
 
-      <motion.div
-        className="absolute bottom-40 right-32 z-10 hidden lg:block"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 0.6, scale: 1 }}
-        transition={{ delay: 2.2, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          transform: `translate(${mousePosition.x * -1}px, ${mousePosition.y * -1}px)`,
-        }}
-      >
-        <div className="w-2 h-2 bg-sage rounded-full shadow-lg" />
-      </motion.div>
+          <motion.div
+            className="absolute bottom-40 right-32 z-10 hidden lg:block"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.4, scale: 1 }}
+            transition={{ delay: 1.2, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              transform: `translate(${mousePosition.x * -0.7}px, ${mousePosition.y * -0.7}px)`,
+            }}
+          >
+            <div className="w-3 h-3 bg-white/60 rounded-full shadow-xl backdrop-blur-sm" />
+          </motion.div>
+        </>
+      )}
     </section>
   );
 }

@@ -8,25 +8,30 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function FeaturedCollections() {
   return (
-    <section className="py-28 md:py-36 lg:py-44 bg-warm-white">
-      <div className="container mx-auto px-6 md:px-10 lg:px-16">
+    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light-vertical relative overflow-hidden -mt-32">
+      {/* Light background pattern */}
+      <div className="absolute inset-0 opacity-3">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sage rounded-full blur-3xl"></div>
+      </div>
+      <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-20 md:mb-24 lg:mb-28"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
-          <motion.span
+          {/* <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-8 block"
+            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-6 block"
           >
             Curated Selections
-          </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl serif font-normal text-charcoal mb-8 md:mb-10">
+          </motion.span> */}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal mb-6 md:mb-8">
             Featured Collections
           </h2>
           <p className="text-charcoal/65 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4 font-light">
@@ -76,7 +81,7 @@ export default function FeaturedCollections() {
                         transition={{ delay: 0.2 + index * 0.1 }}
                       >
                         <div className="flex-1">
-                          <h3 className={`serif font-medium mb-3 text-cream ${index === 0 ? 'text-4xl' : 'text-2xl'}`}>
+                          <h3 className={`serif font-semibold mb-3 text-cream ${index === 0 ? 'text-4xl' : 'text-2xl'}`}>
                             {collection.name}
                           </h3>
                           <p className="text-cream/80 mb-6 leading-relaxed">

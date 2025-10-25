@@ -28,7 +28,7 @@ export default function TrendingProducts() {
   };
 
   return (
-    <section className="py-28 md:py-36 lg:py-44 bg-gradient-to-b from-soft-beige/30 to-warm-white relative overflow-hidden">
+    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-20 left-0 w-96 h-96 bg-terracotta/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-0 w-96 h-96 bg-sage/5 rounded-full blur-3xl"></div>
@@ -39,7 +39,7 @@ export default function TrendingProducts() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col md:flex-row items-start md:items-end justify-between mb-20 md:mb-24 gap-8 md:gap-0"
+          className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 md:mb-16 gap-8 md:gap-0"
         >
           <div className="flex-1">
             <motion.div
@@ -55,7 +55,7 @@ export default function TrendingProducts() {
                 What's Hot
               </span>
             </motion.div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl serif font-normal text-charcoal mb-6 md:mb-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal mb-6 md:mb-8">
               Trending Now
             </h2>
             <p className="text-charcoal/65 text-base md:text-lg max-w-2xl leading-relaxed font-light">
@@ -114,7 +114,7 @@ export default function TrendingProducts() {
         </motion.div>
 
         {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-warm-white to-transparent pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
       </div>
     </section>
   );

@@ -50,7 +50,7 @@ export default function CartSidebar() {
             <div className="flex-1 overflow-y-auto p-6">
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
-                  <ShoppingBag size={64} className="text-beige mb-4" />
+                  <ShoppingBag size={64} className="text-gray-300 mb-4" />
                   <p className="text-charcoal/60 mb-4">Your cart is empty</p>
                   <Button onClick={toggleCart}>Continue Shopping</Button>
                 </div>
@@ -59,7 +59,7 @@ export default function CartSidebar() {
                   {cart.map((item) => (
                     <div key={`${item.product.id}-${item.selectedSize}-${item.selectedColor}`} className="flex gap-4">
                       {/* Image */}
-                      <div className="relative w-24 h-32 flex-shrink-0 bg-beige rounded-md overflow-hidden">
+                      <div className="relative w-24 h-32 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
                         <Image
                           src={item.product.images[0]}
                           alt={item.product.name}
@@ -100,7 +100,7 @@ export default function CartSidebar() {
                         <div className="flex items-center gap-3 mt-auto">
                           <button
                             onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                            className="w-8 h-8 flex items-center justify-center border border-charcoal/20 rounded hover:bg-beige transition-colors"
+                            className="w-8 h-8 flex items-center justify-center border border-charcoal/20 rounded hover:bg-gray-100 transition-colors"
                             aria-label="Decrease quantity"
                           >
                             <Minus size={16} />
@@ -110,7 +110,7 @@ export default function CartSidebar() {
                           </span>
                           <button
                             onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                            className="w-8 h-8 flex items-center justify-center border border-charcoal/20 rounded hover:bg-beige transition-colors"
+                            className="w-8 h-8 flex items-center justify-center border border-charcoal/20 rounded hover:bg-gray-100 transition-colors"
                             aria-label="Increase quantity"
                           >
                             <Plus size={16} />
