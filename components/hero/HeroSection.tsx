@@ -5,30 +5,54 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ParticleText from './ParticleText';
 import { Palette, Shirt, Gem } from 'lucide-react';
 
+// ========================================
+// HERO SLIDESHOW IMAGE CONFIGURATION
+// ========================================
+// To use your own images:
+// 1. Place your images in the /public/images/ directory
+// 2. Replace the empty strings below with the image paths
+//    - Example: '/images/hero/ceramics.jpg'
+// 3. Leave empty strings to use default Unsplash images
+// 4. Customize titles and subtitles as needed
+// ========================================
+
+const HERO_IMAGE_CONFIG = [
+  { customPath: '', defaultUrl: '/images/tode-bag/teeth_cock_tode.jpeg' },
+  { customPath: '', defaultUrl: '/images/painting/autism-day-awareness-collage-style-with-people.jpg' },
+  { customPath: '', defaultUrl: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1920&q=80' },
+  { customPath: '', defaultUrl: '/images/shoe/pair-brown-shoes-with-black-leather-sole-word-bottom.jpg' },
+  { customPath: '', defaultUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1920&q=80' },
+];
+
+// Helper function to get image path with fallback
+const getImageUrl = (config: { customPath: string; defaultUrl: string }) => {
+  return config.customPath || config.defaultUrl;
+};
+
 // Professional slideshow images - high-quality artisan/craft themed
 const SLIDESHOW_IMAGES = [
   {
-    url: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1920&q=80',
+    url: getImageUrl(HERO_IMAGE_CONFIG[0]),
     title: 'Handcrafted Ceramics',
     subtitle: 'Artisan pottery and stoneware'
   },
   {
-    url: 'https://images.unsplash.com/photo-1558769132-cb1aea3c8347?w=1920&q=80',
+    url: getImageUrl(HERO_IMAGE_CONFIG[1]),
     title: 'Textile Arts',
     subtitle: 'Woven with precision and care'
   },
   {
-    url: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1920&q=80',
+    url: getImageUrl(HERO_IMAGE_CONFIG[2]),
     title: 'Fashion Forward',
     subtitle: 'Contemporary apparel design'
   },
   {
-    url: 'https://images.unsplash.com/photo-1524293368230-73d8bf0143a0?w=1920&q=80',
+    url: getImageUrl(HERO_IMAGE_CONFIG[3]),
     title: 'Leather Craft',
     subtitle: 'Premium handmade accessories'
   },
   {
-    url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1920&q=80',
+    url: getImageUrl(HERO_IMAGE_CONFIG[4]),
     title: 'Artisan Jewelry',
     subtitle: 'Unique statement pieces'
   }
@@ -174,12 +198,12 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="text-center space-y-6"
+                className="text-center"
               >
-                <h2 className="text-5xl md:text-7xl lg:text-8xl serif font-bold text-white tracking-wide drop-shadow-2xl">
+                <h2 style={{ color: '#ffffff', marginBottom: '0.5cm', fontFamily: 'var(--font-sans)' }} className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[0.2em] uppercase drop-shadow-2xl">
                   {SLIDESHOW_IMAGES[currentSlide].title}
                 </h2>
-                <p className="text-xl md:text-2xl lg:text-3xl font-light text-white/90 tracking-[0.2em] uppercase drop-shadow-xl">
+                <p style={{ color: '#ffffff', marginTop: '0' }} className="text-sm md:text-base lg:text-lg font-extrabold tracking-[0.2em] uppercase drop-shadow-xl">
                   {SLIDESHOW_IMAGES[currentSlide].subtitle}
                 </p>
               </motion.div>
