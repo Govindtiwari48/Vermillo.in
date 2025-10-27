@@ -37,8 +37,8 @@ export default function Navigation() {
         animate={{ y: 0 }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md"
       >
-        <div className="container mx-auto px-8">
-          <div className="flex items-center justify-between h-20">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="flex items-center justify-between h-16">
             {/* Logo - Fades in after hero animation */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -51,47 +51,47 @@ export default function Navigation() {
                 ease: [0.22, 1, 0.36, 1]
               }}
             >
-              <Link href="/" className="text-2xl serif font-bold transition-colors duration-300 text-black">
+              <Link href="/" className="text-3xl serif font-bold transition-colors duration-300 text-black">
                 Vermillo
               </Link>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-10 lg:gap-12">
+            <div className="hidden md:flex items-center gap-6 lg:gap-8">
               <Link
                 href="/collections/all"
-                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
+                className="text-sm font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Collections
               </Link>
               <Link
                 href="/collections/art"
-                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
+                className="text-sm font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Art
               </Link>
               <Link
                 href="/collections/clothing"
-                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
+                className="text-sm font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Clothing
               </Link>
               <Link
                 href="/collections/accessories"
-                className="text-base font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
+                className="text-sm font-medium hover:text-terracotta transition-colors duration-300 whitespace-nowrap text-black"
               >
                 Accessories
               </Link>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               <button
                 onClick={toggleCart}
-                className="relative hover:text-sage transition-colors p-2 text-black"
+                className="relative hover:text-sage transition-colors p-1.5 text-black"
                 aria-label="Shopping cart"
               >
-                <ShoppingBag size={24} />
+                <ShoppingBag size={20} />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-sienna text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                     {cartCount}
@@ -101,10 +101,10 @@ export default function Navigation() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 text-black"
+                className="md:hidden p-1.5 text-black"
                 aria-label="Menu"
               >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
@@ -121,7 +121,7 @@ export default function Navigation() {
             transition={{ type: 'tween' }}
             className="fixed inset-0 bg-white z-40 md:hidden pt-24"
           >
-            <div className="container mx-auto px-8">
+            <div className="container mx-auto px-6 max-w-4xl">
               <div className="flex flex-col space-y-6">
                 <Link
                   href="/collections/all"

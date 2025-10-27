@@ -4,141 +4,94 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { collections } from '@/lib/mockData';
-import { ArrowUpRight } from 'lucide-react';
 
 export default function FeaturedCollections() {
+  // Calculate proper heights to ensure perfect alignment
+  // On large screens: left image spans 2 rows, each row on right is 350px with 10px gap
+  // Left image: 700px (350px * 2), Right grid: 350px height per item
+
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light-vertical relative overflow-hidden -mt-32">
-      {/* Light background pattern */}
-      <div className="absolute inset-0 opacity-3">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sage rounded-full blur-3xl"></div>
-      </div>
-      <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+    <section className="-mt-32">
+      <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-12 md:mb-16 lg:mb-20"
+          className="text-center"
+          style={{ paddingTop: '28px', paddingBottom: '28px' }}
         >
-          {/* <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-6 block"
-          >
-            Curated Selections
-          </motion.span> */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal mb-6 md:mb-8">
-            Featured Collections
+          <h2 className="text-black uppercase tracking-[0.2em] !font-sans leading-tight" style={{ fontSize: '1.125rem', fontWeight: 800 }}>
+            FEATURED COLLECTIONS
           </h2>
-          <p className="text-charcoal/65 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4 font-light">
-            Explore our carefully curated selections of artisanal pieces, each telling a unique story
-          </p>
         </motion.div>
 
-        {/* Masonry Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-8 lg:gap-10">
-          {collections.map((collection, index) => (
-            <motion.div
-              key={collection.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className={`${index === 0 ? 'md:col-span-2 md:row-span-2' : ''
-                }`}
-            >
-              <Link href={`/collections/${collection.slug}`}>
-                <motion.div
-                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500"
-                  whileHover={{ y: -8 }}
-                >
-                  <div className={`relative ${index === 0 ? 'h-[700px]' : 'h-[340px]'} overflow-hidden`}>
+        {/* Main Grid Layout - Properly aligned structure */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          {/* Large Featured Image - Left Side (Spans 2 rows) */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-1"
+          >
+            <Link href="/collections">
+              <motion.div
+                className="group relative overflow-hidden rounded-xl"
+                style={{
+                  height: 'calc((350px + 1.25rem) * 2)',
+                  minHeight: '600px'
+                }}
+                whileHover={{ scale: 0.98 }}
+                transition={{ duration: 0.4 }}
+              >
+                <Image
+                  src={collections[0].image}
+                  alt={collections[0].name}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  priority
+                />
+              </motion.div>
+            </Link>
+          </motion.div>
+
+          {/* Right Side - 2x2 Grid (Spans 2 columns) */}
+          <div className="lg:col-span-2 grid grid-cols-2 gap-5 items-end">
+            {collections.slice(1).map((collection, index) => (
+              <motion.div
+                key={collection.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.1,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+                className="w-full h-full flex"
+              >
+                <Link href={`/collections/${collection.slug}`} className="block h-full w-full flex items-end">
+                  <motion.div
+                    className="group relative overflow-hidden rounded-xl h-[340px] sm:h-[380px] lg:h-[350px] w-full"
+                    whileHover={{ scale: 0.98 }}
+                    transition={{ duration: 0.4 }}
+                  >
                     <Image
                       src={collection.image}
                       alt={collection.name}
                       fill
-                      className="object-cover transition-all duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 50vw, 33vw"
                     />
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                      <motion.div
-                        className="flex items-start justify-between mb-4"
-                        initial={{ y: 20, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 + index * 0.1 }}
-                      >
-                        <div className="flex-1">
-                          <h3 className={`serif font-semibold mb-3 text-cream ${index === 0 ? 'text-4xl' : 'text-2xl'}`}>
-                            {collection.name}
-                          </h3>
-                          <p className="text-cream/80 mb-6 leading-relaxed">
-                            {collection.description}
-                          </p>
-                        </div>
-                        <motion.div
-                          whileHover={{ scale: 1.1, rotate: 45 }}
-                          transition={{ type: 'spring', stiffness: 400 }}
-                          className="w-12 h-12 flex items-center justify-center bg-cream/10 backdrop-blur-md rounded-full border border-cream/20 group-hover:bg-terracotta group-hover:border-terracotta transition-all"
-                        >
-                          <ArrowUpRight className="text-cream" size={20} />
-                        </motion.div>
-                      </motion.div>
-
-                      <motion.div
-                        className="inline-flex items-center gap-2 text-cream/90 text-sm font-medium group-hover:text-terracotta transition-colors"
-                        whileHover={{ x: 5 }}
-                      >
-                        <span>Explore Collection</span>
-                        <span className="w-8 h-[1.5px] bg-current transition-all group-hover:w-12"></span>
-                      </motion.div>
-                    </div>
-
-                    {/* Badge */}
-                    {index === 0 && (
-                      <div className="absolute top-8 left-8">
-                        <span className="bg-gold text-deep-charcoal text-xs px-4 py-2 rounded-full font-medium shadow-lg backdrop-blur-sm">
-                          New Arrival
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-          ))}
+                  </motion.div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
-
-        {/* View All Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="text-center mt-20 md:mt-24"
-        >
-          <Link href="/collections/all">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 border-2 border-terracotta text-terracotta rounded-xl hover:bg-terracotta hover:text-cream transition-all duration-300 font-medium"
-            >
-              View All Collections
-            </motion.button>
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

@@ -28,12 +28,25 @@ export default function TrendingProducts() {
   };
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light relative overflow-hidden">
+    <section className="bg-gradient-light relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-20 left-0 w-96 h-96 bg-terracotta/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-0 w-96 h-96 bg-sage/5 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+        <div className="text-center" style={{ paddingTop: '28px', paddingBottom: '28px' }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="text-black uppercase tracking-[0.2em] !font-sans leading-tight"
+            style={{ fontSize: '1.125rem', fontWeight: 800 }}
+          >
+            TRENDING NOW
+          </motion.h2>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +56,7 @@ export default function TrendingProducts() {
         >
           <div className="flex-1">
             <motion.div
-              className="flex items-center gap-3 mb-8"
+              className="flex items-center gap-3 mb-4"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
@@ -55,9 +68,6 @@ export default function TrendingProducts() {
                 What's Hot
               </span>
             </motion.div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal mb-6 md:mb-8">
-              Trending Now
-            </h2>
             <p className="text-charcoal/65 text-base md:text-lg max-w-2xl leading-relaxed font-light">
               Discover what's capturing hearts this season — our most coveted pieces
             </p>

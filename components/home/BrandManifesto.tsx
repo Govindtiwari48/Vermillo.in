@@ -15,7 +15,7 @@ export default function BrandManifesto() {
   ];
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light relative overflow-hidden">
+    <section className="bg-gradient-light relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gray-200/30 -z-0"></div>
 
@@ -69,19 +69,18 @@ export default function BrandManifesto() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-8 md:space-y-10"
           >
-            <div>
+            <div className="text-center" style={{ paddingTop: '28px', paddingBottom: '28px' }}>
               <motion.span
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-8 block"
+                className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-4 block"
               >
                 Our Philosophy
               </motion.span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal leading-tight mb-6 md:mb-8 relative">
-                Where Artistry Meets Everyday Life
-                <span className="absolute -bottom-3 md:-bottom-4 left-0 w-24 h-[3px] bg-gradient-to-r from-terracotta to-gold"></span>
+              <h2 className="text-black uppercase tracking-[0.2em] !font-sans leading-tight" style={{ fontSize: '1.125rem', fontWeight: 800 }}>
+                WHERE ARTISTRY MEETS EVERYDAY LIFE
               </h2>
             </div>
 

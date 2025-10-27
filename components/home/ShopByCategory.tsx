@@ -31,7 +31,7 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-light text-charcoal relative overflow-hidden">
+    <section className="bg-gradient-light text-charcoal relative overflow-hidden">
       {/* Background pattern - lighter for white background */}
       <div className="absolute inset-0 opacity-3">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
@@ -44,19 +44,20 @@ export default function ShopByCategory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-12 md:mb-16 lg:mb-20"
+          className="text-center"
+          style={{ paddingTop: '28px', paddingBottom: '28px' }}
         >
-          <motion.span
+          {/* <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-6 block"
+            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-4 block"
           >
             Browse Collections
-          </motion.span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl serif font-semibold text-charcoal mb-6 md:mb-8">
-            Shop by Category
+          </motion.span> */}
+          <h2 className="text-black uppercase tracking-[0.2em] mb-4 !font-sans leading-tight" style={{ fontSize: '1.125rem', fontWeight: 800 }}>
+            SHOP BY CATEGORY
           </h2>
           <p className="text-charcoal/65 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4 font-light">
             Explore our carefully curated categories designed for the discerning collector

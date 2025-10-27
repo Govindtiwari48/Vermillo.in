@@ -3,31 +3,38 @@ import { Product, Collection } from './types';
 export const collections: Collection[] = [
   {
     id: '1',
-    name: 'The Sculpture Garden',
-    description: 'Handcrafted jewelry pieces inspired by natural forms',
-    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&h=1000',
-    slug: 'sculpture-garden'
+    name: 'Featured Collection',
+    description: 'Explore our curated collections',
+    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&h=1600',
+    slug: 'collections'
   },
   {
     id: '2',
-    name: 'The Canvas Collection',
-    description: 'Wearable art meets contemporary fashion',
-    image: 'https://images.unsplash.com/photo-1558769132-cb1aea3c8347?q=80&w=800&h=1000',
-    slug: 'canvas-collection'
+    name: 'Canvas Art',
+    description: 'Handcrafted canvas artwork',
+    image: 'https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=800&h=800',
+    slug: 'art'
   },
   {
     id: '3',
-    name: 'Urban Minimalist',
-    description: 'Clean lines and timeless elegance',
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&h=1000',
-    slug: 'urban-minimalist'
+    name: 'Designer Saree',
+    description: 'Artistic hand-painted sarees',
+    image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=800&h=800',
+    slug: 'clothing'
   },
   {
     id: '4',
-    name: 'Artisan Accessories',
-    description: 'Curated pieces to complete your look',
-    image: 'https://images.unsplash.com/photo-1524721696987-b9527df9e512?q=80&w=800&h=1000',
-    slug: 'artisan-accessories'
+    name: 'Leather Shoes',
+    description: 'Premium handcrafted footwear',
+    image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=800&h=800',
+    slug: 'accessories'
+  },
+  {
+    id: '5',
+    name: 'Paintings',
+    description: 'Original artwork collection',
+    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&h=800',
+    slug: 'art'
   }
 ];
 
