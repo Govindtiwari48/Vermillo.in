@@ -15,11 +15,11 @@ export default function BrandManifesto() {
   ];
 
   return (
-    <section className="bg-gradient-light relative overflow-hidden">
+    <section className="bg-gradient-light relative overflow-hidden mb-[1cm]">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gray-200/30 -z-0"></div>
 
-      <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+      <div className="mx-auto relative z-10" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20 lg:gap-24 items-center">
           {/* Image */}
           <motion.div

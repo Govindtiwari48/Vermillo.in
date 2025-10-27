@@ -31,14 +31,14 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className="bg-gradient-light text-charcoal relative overflow-hidden">
+    <section className="bg-gradient-light text-charcoal relative overflow-hidden mb-[1cm]">
       {/* Background pattern - lighter for white background */}
       <div className="absolute inset-0 opacity-3">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sage rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+      <div className="mx-auto relative z-10" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export default function ShopByCategory() {
             >
               <Link href={category.href}>
                 <motion.div
-                  className="group relative h-[350px] overflow-hidden rounded-2xl shadow-lg"
+                  className="group relative h-[350px] overflow-hidden shadow-lg"
                   whileHover={{ y: -8 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >

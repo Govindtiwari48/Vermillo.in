@@ -6,7 +6,7 @@ import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
 export default function Footer() {
   return (
     <footer className="bg-gradient-light-reverse text-charcoal pt-20 pb-12">
-      <div className="container mx-auto px-8">
+      <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
           {/* Brand */}
           <div className="md:col-span-5">

@@ -49,7 +49,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-gradient-light">
-      <div className="container mx-auto px-8">
+      <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Left: Image Gallery */}
           <div className="space-y-4">
@@ -119,8 +119,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`px-6 py-3 border-2 rounded-md transition-all ${selectedSize === size
-                          ? 'border-sage bg-sage text-white'
-                          : 'border-charcoal/20 hover:border-sage'
+                        ? 'border-sage bg-sage text-white'
+                        : 'border-charcoal/20 hover:border-sage'
                         }`}
                     >
                       {size}
@@ -142,8 +142,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                       key={color.name}
                       onClick={() => setSelectedColor(color.name)}
                       className={`w-12 h-12 rounded-full border-2 transition-all ${selectedColor === color.name
-                          ? 'border-sage scale-110'
-                          : 'border-charcoal/20 hover:scale-110'
+                        ? 'border-sage scale-110'
+                        : 'border-charcoal/20 hover:scale-110'
                         }`}
                       style={{ backgroundColor: color.hex }}
                       title={color.name}

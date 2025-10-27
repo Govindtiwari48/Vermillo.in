@@ -68,7 +68,7 @@ export default function HeroSection() {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDESHOW_IMAGES.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 2000); // Change slide every 5 seconds
 
     return () => clearInterval(interval);
   }, [logoAnimationComplete]);

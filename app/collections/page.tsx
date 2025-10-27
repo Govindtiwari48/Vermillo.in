@@ -8,7 +8,7 @@ import { collections } from '@/lib/mockData';
 export default function CollectionsPage() {
     return (
         <div className="min-h-screen bg-cream pt-32 pb-20">
-            <div className="container mx-auto px-6 md:px-10 lg:px-16">
+            <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -32,7 +32,7 @@ export default function CollectionsPage() {
                             transition={{ delay: index * 0.1, duration: 0.6 }}
                         >
                             <Link href={`/collections/${collection.slug}`}>
-                                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                <div className="group relative overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                     <div className="relative aspect-[3/4]">
                                         <Image
                                             src={collection.image}

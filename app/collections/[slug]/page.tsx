@@ -59,7 +59,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
     <div className="min-h-screen pt-24">
       {/* Header */}
       <div className="bg-gradient-light py-16">
-        <div className="container mx-auto px-8">
+        <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-8 py-12">
+      <div className="mx-auto py-12" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <div className="flex gap-8">
           {/* Filters Sidebar */}
           <div className={`${showFilters ? 'block' : 'hidden'} lg:block w-full lg:w-64 flex-shrink-0`}>

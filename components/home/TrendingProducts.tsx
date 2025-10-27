@@ -28,12 +28,12 @@ export default function TrendingProducts() {
   };
 
   return (
-    <section className="bg-gradient-light relative overflow-hidden">
+    <section className="bg-gradient-light relative overflow-hidden mb-[1cm]">
       {/* Decorative elements */}
       <div className="absolute top-20 left-0 w-96 h-96 bg-terracotta/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-0 w-96 h-96 bg-sage/5 rounded-full blur-3xl"></div>
 
-      <div className="container mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+      <div className="mx-auto relative z-10" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <div className="text-center" style={{ paddingTop: '28px', paddingBottom: '28px' }}>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

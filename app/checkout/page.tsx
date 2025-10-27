@@ -71,7 +71,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-gradient-light">
-      <div className="container mx-auto px-8 max-w-6xl">
+      <div className="mx-auto max-w-6xl" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         {/* Progress Bar */}
         <div className="mb-12">
           <div className="flex items-center justify-between">
@@ -80,8 +80,8 @@ export default function CheckoutPage() {
                 <div className="flex items-center w-full">
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center ${index <= currentStepIndex
-                        ? 'bg-sage text-white'
-                        : 'bg-white text-charcoal/40 border-2 border-charcoal/20'
+                      ? 'bg-sage text-white'
+                      : 'bg-white text-charcoal/40 border-2 border-charcoal/20'
                       }`}
                   >
                     {index < currentStepIndex ? <Check size={20} /> : index + 1}

@@ -11,8 +11,8 @@ export default function FeaturedCollections() {
   // Left image: 700px (350px * 2), Right grid: 350px height per item
 
   return (
-    <section className="-mt-32">
-      <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-7xl">
+    <section className="-mt-32 mb-[1cm]">
+      <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +38,7 @@ export default function FeaturedCollections() {
           >
             <Link href="/collections">
               <motion.div
-                className="group relative overflow-hidden rounded-xl"
+                className="group relative overflow-hidden"
                 style={{
                   height: 'calc((350px + 1.25rem) * 2)',
                   minHeight: '600px'
@@ -75,7 +75,7 @@ export default function FeaturedCollections() {
               >
                 <Link href={`/collections/${collection.slug}`} className="block h-full w-full flex items-end">
                   <motion.div
-                    className="group relative overflow-hidden rounded-xl h-[340px] sm:h-[380px] lg:h-[350px] w-full"
+                    className="group relative overflow-hidden h-[340px] sm:h-[380px] lg:h-[350px] w-full"
                     whileHover={{ scale: 0.98 }}
                     transition={{ duration: 0.4 }}
                   >

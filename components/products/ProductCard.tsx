@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/products/${product.id}`}>
       <motion.div
-        className="group relative overflow-hidden bg-warm-white rounded-xl transition-all duration-500"
+        className="group relative overflow-hidden bg-warm-white transition-all duration-500"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
           setIsHovered(false);
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         }}
       >
         {/* Image Container */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-soft-beige rounded-t-xl">
+        <div className="relative aspect-[3/4] overflow-hidden bg-soft-beige">
           <Image
             src={product.images[currentImage]}
             alt={product.name}
