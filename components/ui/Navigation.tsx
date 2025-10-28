@@ -3,14 +3,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { ShoppingBag, Menu, X, Heart } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
+import { useWishlist } from '@/lib/wishlistContext';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showLogo, setShowLogo] = useState(false);
   const { cartCount, toggleCart } = useCart();
+  const { wishlistCount } = useWishlist();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,6 +88,21 @@ export default function Navigation() {
 
             {/* Actions */}
             <div className="flex items-center space-x-2">
+              {/* Wishlist Button */}
+              <Link
+                href="/profile/wishlist"
+                className="relative hover:text-red-500 transition-colors p-1.5 text-black"
+                aria-label="Wishlist"
+              >
+                <Heart size={20} />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart Button */}
               <button
                 onClick={toggleCart}
                 className="relative hover:text-sage transition-colors p-1.5 text-black"
@@ -123,6 +140,14 @@ export default function Navigation() {
           >
             <div className="container mx-auto px-6 max-w-4xl">
               <div className="flex flex-col space-y-6">
+                <Link
+                  href="/profile/wishlist"
+                  className="text-2xl serif text-charcoal hover:text-red-500 transition-colors flex items-center gap-3"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Heart size={20} />
+                  Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
+                </Link>
                 <Link
                   href="/collections/all"
                   className="text-2xl serif text-charcoal hover:text-sage transition-colors"

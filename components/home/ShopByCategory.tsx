@@ -34,8 +34,8 @@ export default function ShopByCategory() {
     <section className="bg-gradient-light text-charcoal relative overflow-hidden mb-[1cm]" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
       {/* Background pattern - lighter for white background */}
       <div className="absolute inset-0 opacity-3">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sage rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sage blur-3xl"></div>
       </div>
 
       <div className="mx-auto relative z-10" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
@@ -131,7 +131,7 @@ export default function ShopByCategory() {
 
                   {/* Decorative element */}
                   <motion.div
-                    className="absolute top-1/2 left-1/2 w-64 h-64 bg-terracotta/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    className="absolute top-1/2 left-1/2 w-64 h-64 bg-terracotta/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{ transform: 'translate(-50%, -50%)' }}
                   />
                 </motion.div>

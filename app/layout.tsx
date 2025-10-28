@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/lib/cartContext';
+import { WishlistProvider } from '@/lib/wishlistContext';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/ui/Footer';
 import CartSidebar from '@/components/cart/CartSidebar';
@@ -43,12 +44,14 @@ export default function RootLayout({
     <html lang="en" className={`${cormorantGaramond.variable} ${inter.variable}`}>
       <body>
         <CartProvider>
-          <ClientLayout>
-            <Navigation />
-            <main>{children}</main>
-            <Footer />
-            <CartSidebar />
-          </ClientLayout>
+          <WishlistProvider>
+            <ClientLayout>
+              <Navigation />
+              <main>{children}</main>
+              <Footer />
+              <CartSidebar />
+            </ClientLayout>
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

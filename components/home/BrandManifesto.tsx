@@ -15,7 +15,7 @@ export default function BrandManifesto() {
   ];
 
   return (
-    <section className="bg-gradient-light relative overflow-hidden mb-[1cm]">
+    <section className="bg-gradient-light relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gray-200/30 -z-0"></div>
 
@@ -29,7 +29,7 @@ export default function BrandManifesto() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="relative h-[700px] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-[700px] overflow-hidden shadow-2xl">
               <Image
                 src="/images/painting/Hand_Drawing_raj.jpeg"
                 alt="Artisan at work"
@@ -59,7 +59,7 @@ export default function BrandManifesto() {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7 }}
-              className="absolute -bottom-8 -left-8 w-64 h-64 bg-terracotta/10 rounded-full blur-3xl -z-10"
+              className="absolute -bottom-8 -left-8 w-64 h-64 bg-terracotta/10 blur-3xl -z-10"
             />
           </motion.div>
 
@@ -148,14 +148,14 @@ export default function BrandManifesto() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
             >
-              <Link href="/collections/all">
+              {/* <Link href="/collections/all">
                 <Button size="lg">Discover Our Story</Button>
               </Link>
               <Link href="/about">
                 <Button variant="secondary" size="lg">
                   Learn More
                 </Button>
-              </Link>
+              </Link> */}
             </motion.div>
           </motion.div>
         </div>
