@@ -31,7 +31,7 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className="bg-gradient-light text-charcoal relative overflow-hidden mb-[1cm]">
+    <section className="bg-gradient-light text-charcoal relative overflow-hidden mb-[1cm]" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
       {/* Background pattern - lighter for white background */}
       <div className="absolute inset-0 opacity-3">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-terracotta rounded-full blur-3xl"></div>
@@ -47,24 +47,17 @@ export default function ShopByCategory() {
           className="text-center"
           style={{ paddingTop: '28px', paddingBottom: '28px' }}
         >
-          {/* <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase mb-4 block"
-          >
-            Browse Collections
-          </motion.span> */}
           <h2 className="text-black uppercase tracking-[0.2em] mb-4 !font-sans leading-tight" style={{ fontSize: '1.125rem', fontWeight: 800 }}>
             SHOP BY CATEGORY
           </h2>
-          <p className="text-charcoal/65 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4 font-light">
-            Explore our carefully curated categories designed for the discerning collector
-          </p>
+          <div className="flex justify-center">
+            <p className="text-charcoal/65 max-w-2xl text-base md:text-lg leading-relaxed px-4 font-light text-center">
+              Explore our carefully curated categories designed for the discerning collector
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16 mt-16 md:mt-20 lg:mt-24 mb-16 md:mb-20 lg:mb-24">
           {categories.map((category, index) => (
             <motion.div
               key={category.name}
@@ -92,7 +85,7 @@ export default function ShopByCategory() {
                   />
 
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent group-hover:from-charcoal/90 group-hover:via-charcoal/60 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent group-hover:from-black/30 transition-all duration-500" />
 
                   {/* Content */}
                   <div className="absolute inset-0 p-6 flex flex-col justify-between">
@@ -103,7 +96,7 @@ export default function ShopByCategory() {
                       transition={{ delay: 0.3 + index * 0.1 }}
                       className="self-start"
                     >
-                      <span className={`bg-${category.color}/20 backdrop-blur-sm border border-${category.color}/30 text-cream text-xs px-3 py-1.5 rounded-full font-medium`}>
+                      <span className="bg-white/95 backdrop-blur-sm border border-white/20 text-charcoal text-xs px-4 py-2 rounded-full font-semibold tracking-wide shadow-sm">
                         Collection
                       </span>
                     </motion.div>
@@ -111,29 +104,26 @@ export default function ShopByCategory() {
                     {/* Bottom content */}
                     <div>
                       <motion.div
-                        className="mb-4"
+                        className="mb-6"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 + index * 0.1 }}
                       >
-                        <h3 className="text-3xl serif font-semibold mb-2 group-hover:text-terracotta transition-colors duration-300">
+                        <h3 className="text-3xl serif font-semibold mb-2 text-white group-hover:text-terracotta transition-colors duration-300 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg inline-block">
                           {category.name}
                         </h3>
-                        <p className="text-cream/70 text-sm">
-                          {category.description}
-                        </p>
                       </motion.div>
 
                       <motion.div
-                        className="flex items-center gap-3 text-cream group-hover:text-terracotta transition-colors"
+                        className="flex items-center gap-3 text-white group-hover:text-white transition-colors"
                         whileHover={{ x: 10 }}
                       >
-                        <span className="text-sm font-medium tracking-wide">Explore Now</span>
+                        <span className="text-sm font-semibold tracking-wide">Explore Now</span>
                         <motion.div
                           whileHover={{ x: 5 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <ArrowRight size={20} strokeWidth={2} />
+                          <ArrowRight size={18} strokeWidth={2.5} />
                         </motion.div>
                       </motion.div>
                     </div>
@@ -151,7 +141,7 @@ export default function ShopByCategory() {
         </div>
 
         {/* Stats */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -178,7 +168,7 @@ export default function ShopByCategory() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

@@ -40,8 +40,8 @@ export default function FeaturedCollections() {
               <motion.div
                 className="group relative overflow-hidden"
                 style={{
-                  height: 'calc((350px + 1.25rem) * 2)',
-                  minHeight: '600px'
+                  height: '720px', // 350px + 20px gap + 350px to match right side
+                  minHeight: '720px'
                 }}
                 whileHover={{ scale: 0.98 }}
                 transition={{ duration: 0.4 }}
@@ -55,7 +55,7 @@ export default function FeaturedCollections() {
                   priority
                 />
                 {/* Text Overlay */}
-                <div className="absolute inset-0 flex items-end justify-center pb-6">
+                <div className="absolute inset-0 flex items-end justify-center pb-4">
                   <span
                     className="uppercase tracking-[0.2em] drop-shadow-lg"
                     style={{
@@ -74,7 +74,7 @@ export default function FeaturedCollections() {
           </motion.div>
 
           {/* Right Side - 2x2 Grid (Spans 2 columns) */}
-          <div className="lg:col-span-2 grid grid-cols-2 gap-5 items-end">
+          <div className="lg:col-span-2 grid grid-cols-2 gap-5">
             {collections.slice(1).map((collection, index) => (
               <motion.div
                 key={collection.id}
@@ -86,9 +86,9 @@ export default function FeaturedCollections() {
                   delay: index * 0.1,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="w-full h-full flex"
+                className="w-full h-full"
               >
-                <Link href={`/collections/${collection.slug}`} className="block h-full w-full flex items-end">
+                <Link href={`/collections/${collection.slug}`} className="block h-full w-full">
                   <motion.div
                     className="group relative overflow-hidden h-[340px] sm:h-[380px] lg:h-[350px] w-full"
                     whileHover={{ scale: 0.98 }}
@@ -102,7 +102,7 @@ export default function FeaturedCollections() {
                       sizes="(max-width: 768px) 50vw, 33vw"
                     />
                     {/* Text Overlay */}
-                    <div className="absolute inset-0 flex items-end justify-center pb-6">
+                    <div className="absolute inset-0 flex items-end justify-center pb-4">
                       <span
                         className="uppercase tracking-[0.2em] drop-shadow-lg"
                         style={{

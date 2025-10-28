@@ -100,29 +100,27 @@ export const collections: Collection[] = [
 export const products: Product[] = [
   {
     id: '1',
-    name: 'Celestial Ring',
+    name: 'Canvas Painting',
     price: 189,
-    description: 'Hand-forged sterling silver ring inspired by celestial movements. Each piece is unique with subtle variations in texture.',
+    description: 'Hand-painted canvas painting by the artist.',
     category: 'accessories',
     images: [
-      getImage(IMAGE_CONFIG.products.celestialRing, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.celestialRing, '/images/painting/Horse_canva_painting_raj.jpeg'),
     ],
     sizes: ['5', '6', '7', '8', '9'],
-    material: 'Sterling Silver',
+    material: 'Canvas',
     inStock: true,
     featured: true,
     trending: true
   },
   {
     id: '2',
-    name: 'Linen Artisan Shirt',
+    name: 'Handpainted Sketch',
     price: 245,
-    description: 'Premium European linen shirt with hand-stitched details. Breathable and perfect for any season.',
+    description: 'Hand-painted sketch by the artist.',
     category: 'clothing',
     images: [
-      getImage(IMAGE_CONFIG.products.linenShirt, 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.linenShirt, '/images/sketch/eye_sketch.jpeg'),
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: [
@@ -130,60 +128,57 @@ export const products: Product[] = [
       { name: 'Charcoal', hex: '#333333' },
       { name: 'Sage', hex: '#556B2F' }
     ],
-    material: 'European Linen',
+    material: 'Sketch',
     inStock: true,
     featured: true,
     trending: true
   },
   {
     id: '3',
-    name: 'Leather Tote Bag',
+    name: 'Couple Ocean Painting',
     price: 165,
-    description: 'Handcrafted leather tote with brass hardware. Vegetable-tanned leather ages beautifully over time.',
+    description: 'Hand-painted couple ocean painting by the artist.',
     category: 'accessories',
     images: [
-      getImage(IMAGE_CONFIG.products.leatherTote, 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.leatherTote, '/images/painting/couple_ocean_painting.jpeg'),
     ],
     colors: [
       { name: 'Tan', hex: '#D2B48C' },
       { name: 'Black', hex: '#1a1a1a' }
     ],
-    material: 'Vegetable-tanned Leather',
+    material: 'Canvas',
     inStock: true,
     trending: true
   },
   {
     id: '4',
-    name: 'Abstract Canvas Print',
+    name: 'Dollar Tode Bag',
     price: 420,
-    description: 'Limited edition giclée print on museum-quality canvas. Signed and numbered by the artist.',
+    description: 'Handcrafted exclusive tode bag.',
     category: 'art',
     images: [
-      getImage(IMAGE_CONFIG.products.abstractCanvas, 'https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.abstractCanvas, '/images/tode-bag/Dollar_tode.jpeg'),
     ],
     sizes: ['18x24"', '24x36"', '36x48"'],
-    material: 'Giclée on Canvas',
+    material: 'Tode Bag',
     inStock: true,
     featured: true
   },
   {
     id: '5',
-    name: 'Wool Blend Coat',
+    name: 'Time Journey Tode Bag',
     price: 520,
-    description: 'Oversized wool blend coat with a relaxed fit. Italian fabric with exceptional drape.',
+    description: 'Handcrafted exclusive tode bag.',
     category: 'clothing',
     images: [
-      getImage(IMAGE_CONFIG.products.woolCoat, 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.woolCoat, '/images/tode-bag/time-juyptor_tode.jpeg'),
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: [
       { name: 'Camel', hex: '#C19A6B' },
       { name: 'Charcoal', hex: '#36454F' }
     ],
-    material: 'Italian Wool Blend',
+    material: 'Tode Bag',
     inStock: true,
     trending: true
   },

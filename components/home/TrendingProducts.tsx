@@ -52,8 +52,8 @@ export default function TrendingProducts() {
             <div className="w-10 h-10 bg-terracotta/10 rounded-full flex items-center justify-center">
               <TrendingUp className="text-terracotta" size={20} />
             </div>
-            <span className="text-sm text-terracotta font-semibold tracking-[0.25em] uppercase">
-              What's Hot
+            <span className="text-sm font-semibold tracking-[0.25em] uppercase">
+              What's <span style={{ color: '#ff6347' }}>Hot</span>
             </span>
           </motion.div>
           <p className="text-charcoal/65 text-base md:text-lg max-w-2xl leading-relaxed font-light text-center">

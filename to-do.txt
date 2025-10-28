@@ -118,9 +118,15 @@ css animation
 2: add this prompt
  remove the bottom width of the hero section and add the marquee line
  Add the marquee link propefessional darked theme written text "add though your own intelligece, "MADE IN INDIA [IN ORANGE COLOR] FOR THE WORLD [IN WHITE COLOR], // 
+[1-2=DONE]
+
 
 3: remove the curve grid edges and make it pointy [Done]
 
 4: from SHOP BY CATEGORY, below 
 remove all the tag line and other button and text from the images, 
 also fix the "10K+" make it equal in font size
+
+5: hero section mlabel shi krna h  [Done]
+
+6: Added teh manual scrol control option so that i can see the product of my own

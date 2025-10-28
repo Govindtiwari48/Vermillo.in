@@ -19,7 +19,7 @@ import { Palette, Shirt, Gem } from 'lucide-react';
 const HERO_IMAGE_CONFIG = [
   { customPath: '', defaultUrl: '/images/tode-bag/teeth_cock_tode.jpeg' },
   { customPath: '', defaultUrl: '/images/painting/autism-day-awareness-collage-style-with-people.jpg' },
-  { customPath: '', defaultUrl: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1920&q=80' },
+  { customPath: '', defaultUrl: '/images/painted-clothes/close-up-hand-painting-with-brush.jpg' },
   { customPath: '', defaultUrl: '/images/shoe/pair-brown-shoes-with-black-leather-sole-word-bottom.jpg' },
   { customPath: '', defaultUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1920&q=80' },
 ];
@@ -33,8 +33,8 @@ const getImageUrl = (config: { customPath: string; defaultUrl: string }) => {
 const SLIDESHOW_IMAGES = [
   {
     url: getImageUrl(HERO_IMAGE_CONFIG[0]),
-    title: 'Handcrafted Ceramics',
-    subtitle: 'Artisan pottery and stoneware'
+    title: 'Premium Tode Bag',
+    subtitle: 'Handcrafted exclusive tode bag'
   },
   {
     url: getImageUrl(HERO_IMAGE_CONFIG[1]),
@@ -53,8 +53,8 @@ const SLIDESHOW_IMAGES = [
   },
   {
     url: getImageUrl(HERO_IMAGE_CONFIG[4]),
-    title: 'Artisan Jewelry',
-    subtitle: 'Unique statement pieces'
+    title: 'Canvas Art',
+    subtitle: 'Handcrafted canvas artwork'
   }
 ];
 
@@ -119,8 +119,8 @@ export default function HeroSection() {
                 className="absolute inset-0 w-full h-full"
                 style={{
                   backgroundImage: `url(${image.url})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  backgroundSize: index === 3 ? '110%' : 'cover',
+                  backgroundPosition: index === 3 ? 'center 20%' : 'center',
                   filter: 'brightness(0.85) contrast(1.05)',
                   zIndex: currentSlide === index ? 1 : 0,
                 }}
@@ -274,6 +274,48 @@ export default function HeroSection() {
           </motion.div>
         </>
       )}
+
+      {/* Professional Marquee Bar */}
+      <AnimatePresence>
+        {logoAnimationComplete && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 1 }}
+            className="absolute bottom-0 left-0 right-0 z-40 bg-black/90 backdrop-blur-sm border-t border-white/10 w-full"
+          >
+            <div className="overflow-hidden py-4">
+              <div
+                className="flex whitespace-nowrap flex-nowrap"
+                style={{
+                  animation: 'marquee 30s linear infinite',
+                  width: 'max-content',
+                }}
+              >
+                {/* Multiple iterations for seamless scroll */}
+                {Array(4).fill(0).map((_, i) => (
+                  <div key={i} className="flex items-center gap-8 px-4">
+                    <span className="text-white text-sm md:text-base font-semibold">
+                      <span style={{ color: '#FF6600' }}>MADE IN INDIA </span>
+                      <span className="text-white ml-2">FOR THE WORLD</span>
+                    </span>
+                    <span className="text-white text-sm md:text-base font-semibold">
+                      <span style={{ color: '#FF6600' }}>FLAT 10%</span>
+                      <span className="text-white ml-2">OFF ON FIRST PURCHASE</span>
+                    </span>
+                    <span className="text-white/60 text-xs md:text-sm">//</span>
+                    <span className="text-white font-medium text-sm md:text-base">
+                      FREE 7 DAY RETURNS
+                    </span>
+                    <span className="w-2 h-2 bg-white/40 rounded-full"></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

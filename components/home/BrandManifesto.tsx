@@ -31,17 +31,19 @@ export default function BrandManifesto() {
           >
             <div className="relative h-[700px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&h=1000"
+                src="/images/painting/Hand_Drawing_raj.jpeg"
                 alt="Artisan at work"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+                quality={90}
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent"></div>
 
               {/* Floating badge */}
-              <motion.div
+              {/* <motion.div
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
@@ -49,7 +51,7 @@ export default function BrandManifesto() {
               >
                 <div className="text-terracotta text-3xl font-bold serif">500+</div>
                 <div className="text-charcoal/60 text-sm mt-1">Curated Items</div>
-              </motion.div>
+              </motion.div> */}
             </div>
 
             {/* Decorative element */}
