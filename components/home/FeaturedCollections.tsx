@@ -54,6 +54,21 @@ export default function FeaturedCollections() {
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   priority
                 />
+                {/* Text Overlay */}
+                <div className="absolute inset-0 flex items-end justify-center pb-6">
+                  <span
+                    className="uppercase tracking-[0.2em] drop-shadow-lg"
+                    style={{
+                      color: '#ffffff',
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 900,
+                      fontSize: '0.875rem',
+                      letterSpacing: '0.1em'
+                    }}
+                  >
+                    {collections[0].name.toUpperCase()}
+                  </span>
+                </div>
               </motion.div>
             </Link>
           </motion.div>
@@ -86,6 +101,21 @@ export default function FeaturedCollections() {
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 50vw, 33vw"
                     />
+                    {/* Text Overlay */}
+                    <div className="absolute inset-0 flex items-end justify-center pb-6">
+                      <span
+                        className="uppercase tracking-[0.2em] drop-shadow-lg"
+                        style={{
+                          color: '#ffffff',
+                          fontFamily: 'var(--font-sans)',
+                          fontWeight: 900,
+                          fontSize: '0.875rem',
+                          letterSpacing: '0.1em'
+                        }}
+                      >
+                        {collection.name.toUpperCase()}
+                      </span>
+                    </div>
                   </motion.div>
                 </Link>
               </motion.div>

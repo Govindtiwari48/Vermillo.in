@@ -10,8 +10,9 @@ export default function Home() {
       <HeroSection />
       <FeaturedCollections />
       <TrendingProducts />
-      <BrandManifesto />
       <ShopByCategory />
+      <BrandManifesto />
+
     </>
   );
 }

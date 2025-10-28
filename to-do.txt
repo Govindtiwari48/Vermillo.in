@@ -1,0 +1,126 @@
+1: add the marquee continuously moving line and add this conetent,
+{/* Professional Marquee Bar */}
+
+<AnimatePresence>
+
+  {logoAnimationComplete && (
+
+    <motion.div
+
+      initial={{ opacity: 0, y: 20 }}
+
+      animate={{ opacity: 1, y: 0 }}
+
+      exit={{ opacity: 0, y: 20 }}
+
+      transition={{ duration: 0.6, delay: 1 }}
+
+      className="absolute bottom-0 left-0 right-0 z-40 bg-black/90 backdrop-blur-sm border-t border-white/10"
+
+    >
+
+      <div className="overflow-hidden py-4">
+
+        <div className="flex whitespace-nowrap animate-marquee flex-nowrap">
+
+          {/* Multiple iterations for seamless scroll */}
+
+          {Array(4).fill(0).map((_, i) => (
+
+            <div key={i} className="flex items-center gap-8 px-4">
+
+              <span className="text-white text-sm md:text-base font-semibold">
+
+                <span style={{ color: '#FF6600' }}>MADE IN INDIA </span>
+
+                <span className="text-white ml-2">FOR THE WORLD</span>
+
+              </span>
+
+              <span className="text-white text-sm md:text-base font-semibold">
+
+                <span style={{ color: '#FF6600' }}>FLAT 10%</span>
+
+                <span className="text-white ml-2">OFF ON FIRST PURCHASE</span>
+
+              </span>
+
+              <span className="text-white/60 text-xs md:text-sm">//</span>
+
+              <span className="text-white font-medium text-sm md:text-base">
+
+                FREE 7 DAY RETURNS
+
+              </span>
+
+              <span className="w-2 h-2 bg-white/40 rounded-full"></span>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+    </motion.div>
+
+  )}
+
+</AnimatePresence>
+
+
+
+tailwind config
+
+animation: {
+
+  marquee: 'marquee 30s linear infinite',
+
+},
+
+keyframes: {
+
+  marquee: {
+
+    '0%': { transform: 'translateX(0)' },
+
+    '100%': { transform: 'translateX(-50%)' },
+
+  },
+
+},
+
+
+
+css animation
+
+/* Marquee Animation */
+
+@keyframes marquee {
+
+  0% {
+
+    transform: translateX(0);
+
+  }
+
+
+
+  100% {
+
+    transform: translateX(-50%);
+
+  }
+
+}
+
+2: add this prompt
+ remove the bottom width of the hero section and add the marquee line
+ Add the marquee link propefessional darked theme written text "add though your own intelligece, "MADE IN INDIA [IN ORANGE COLOR] FOR THE WORLD [IN WHITE COLOR], // 
+
+3: remove the curve grid edges and make it pointy [Done]
+
+4: from SHOP BY CATEGORY, below 
+remove all the tag line and other button and text from the images, 
+also fix the "10K+" make it equal in font size

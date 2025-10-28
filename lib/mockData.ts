@@ -47,7 +47,7 @@ const getImage = (customPath: string, defaultPath: string) => {
 export const collections: Collection[] = [
   {
     id: '1',
-    name: 'Featured Collection',
+    name: 'Customized Collection',
     description: 'Explore our curated collections',
     image: getImage(
       IMAGE_CONFIG.collections.featured,
@@ -57,8 +57,8 @@ export const collections: Collection[] = [
   },
   {
     id: '2',
-    name: 'Canvas Art',
-    description: 'Handcrafted canvas artwork',
+    name: 'Exclusive Tode Bag',
+    description: 'Handcrafted exclusive tode bag',
     image: getImage(
       IMAGE_CONFIG.collections.canvasArt,
       '/images/tode-bag/fish_tode_bag.jpeg'
@@ -67,11 +67,11 @@ export const collections: Collection[] = [
   },
   {
     id: '3',
-    name: 'Designer Saree',
+    name: 'Artwear',
     description: 'Artistic hand-painted sarees',
     image: getImage(
       IMAGE_CONFIG.collections.designerSaree,
-      'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=800&h=800'
+      '/images/painted-clothes/painted-clothes.jpg'
     ),
     slug: 'clothing'
   },
