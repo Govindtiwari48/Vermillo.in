@@ -53,7 +53,7 @@ export const collections: Collection[] = [
       IMAGE_CONFIG.collections.featured,
       '/images/tode-bag/open_mouth_unicorn_tode.jpeg'
     ),
-    slug: 'collections'
+    slug: 'customized'
   },
   {
     id: '2',
@@ -63,7 +63,7 @@ export const collections: Collection[] = [
       IMAGE_CONFIG.collections.canvasArt,
       '/images/tode-bag/fish_tode_bag.jpeg'
     ),
-    slug: 'art'
+    slug: 'customized/tode-bag'
   },
   {
     id: '3',
@@ -73,7 +73,7 @@ export const collections: Collection[] = [
       IMAGE_CONFIG.collections.designerSaree,
       '/images/painted-clothes/painted-clothes.jpg'
     ),
-    slug: 'clothing'
+    slug: 'customized/art-wear'
   },
   {
     id: '4',
@@ -81,9 +81,9 @@ export const collections: Collection[] = [
     description: 'Premium handcrafted footwear',
     image: getImage(
       IMAGE_CONFIG.collections.leatherShoes,
-      'https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=800&h=800'
+      '/images/shoe/men-shoes.jpg'
     ),
-    slug: 'accessories'
+    slug: 'customized/leather-shoe'
   },
   {
     id: '5',
@@ -91,9 +91,9 @@ export const collections: Collection[] = [
     description: 'Original artwork collection',
     image: getImage(
       IMAGE_CONFIG.collections.paintings,
-      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&h=800'
+      '/images/painting/Horse_canva_painting_raj.jpeg'
     ),
-    slug: 'art'
+    slug: 'customized/painting'
   }
 ];
 
@@ -115,12 +115,12 @@ export const products: Product[] = [
   },
   {
     id: '2',
-    name: 'Handpainted Sketch',
+    name: 'Dark Closed Eye Dadi Sketch',
     price: 245,
     description: 'Hand-painted sketch by the artist.',
     category: 'clothing',
     images: [
-      getImage(IMAGE_CONFIG.products.linenShirt, '/images/sketch/eye_sketch.jpeg'),
+      getImage(IMAGE_CONFIG.products.linenShirt, '/images/sketch/Dark_closed_eye_dadi_sketch.png'),
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: [
@@ -184,13 +184,12 @@ export const products: Product[] = [
   },
   {
     id: '6',
-    name: 'Handmade Ceramic Vases',
+    name: 'Witcher Sketch',
     price: 285,
-    description: 'Set of three handthrown ceramic vases with reactive glaze. Each piece is one-of-a-kind.',
+    description: 'Hand-painted sketch by the artist.',
     category: 'art',
     images: [
-      getImage(IMAGE_CONFIG.products.ceramicVases, 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.ceramicVases, '/images/sketch/Witcher_sketch.jpeg'),
     ],
     material: 'Ceramic',
     inStock: true,
@@ -198,20 +197,14 @@ export const products: Product[] = [
   },
   {
     id: '7',
-    name: 'Silk Designer Scarf',
+    name: 'Butterfly Canva Painting',
     price: 135,
-    description: 'Hand-painted silk scarf with abstract botanical motifs. Each scarf is a wearable work of art.',
+    description: 'Hand-painted butterfly canva painting by the artist.',
     category: 'accessories',
     images: [
-      getImage(IMAGE_CONFIG.products.silkScarf, 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.silkScarf, '/images/painting/Butterfly_canva_painting.png'),
     ],
-    colors: [
-      { name: 'Blush', hex: '#FFC0CB' },
-      { name: 'Sage', hex: '#556B2F' },
-      { name: 'Terracotta', hex: '#E2725B' }
-    ],
-    material: 'Pure Silk',
+    material: 'Canvas',
     inStock: true,
     trending: true
   },
@@ -237,70 +230,57 @@ export const products: Product[] = [
   },
   {
     id: '9',
-    name: 'Designer Fashion Dress',
+    name: 'Blue Multi-Eye Tode Bag',
     price: 345,
-    description: 'Elegant midi dress in premium silk blend. Timeless design with modern sophistication.',
+    description: 'Handcrafted exclusive tode bag.',
     category: 'clothing',
     images: [
-      getImage(IMAGE_CONFIG.products.fashionDress, 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1572804013427-4d7ca7268217?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.fashionDress, '/images/tode-bag/blue_multieye.jpeg'),
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    colors: [
-      { name: 'Ivory', hex: '#FFFFF0' },
-      { name: 'Navy', hex: '#000080' },
-      { name: 'Burgundy', hex: '#800020' }
-    ],
-    material: 'Silk Blend',
+    material: 'Tode Bag',
     inStock: true,
     featured: true
   },
   {
     id: '10',
-    name: 'Handcrafted Leather Duffel',
+    name: 'Yellow Canva Painting',
     price: 485,
-    description: 'Vintage-style leather duffel bag with solid brass hardware. Perfect for weekend getaways.',
+    description: 'Hand-painted yellow canva painting by the artist.',
     category: 'accessories',
     images: [
-      getImage(IMAGE_CONFIG.products.leatherDuffel, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.leatherDuffel, '/images/painting/yellow_canva_painting_0.png'),
     ],
-    colors: [
-      { name: 'Cognac', hex: '#9F5240' },
-      { name: 'Dark Brown', hex: '#654321' }
-    ],
-    material: 'Full-Grain Leather',
+    material: 'Canvas',
     inStock: true,
     trending: true,
     featured: true
   },
   {
     id: '11',
-    name: 'Abstract Wall Art',
+    name: 'Blue Multi-Eye Tode Bag',
     price: 580,
-    description: 'Original acrylic painting on canvas. Bold contemporary design by emerging artist.',
+    description: 'Handcrafted exclusive tode bag.',
     category: 'art',
     images: [
-      getImage(IMAGE_CONFIG.products.abstractWallArt, 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.abstractWallArt, '/images/tode-bag/blue_multieye.jpeg'),
     ],
     sizes: ['24x36"', '36x48"', '48x60"'],
-    material: 'Acrylic on Canvas',
+    material: 'Tode Bag',
     inStock: true,
     featured: true
   },
   {
     id: '12',
-    name: 'Minimalist Sketch Collection',
+    name: 'Hero Mood Sketch',
     price: 220,
-    description: 'Set of three framed minimalist sketches. Museum-quality paper with archival ink.',
+    description: 'Hand-painted hero mood sketch by the artist.',
     category: 'art',
     images: [
-      getImage(IMAGE_CONFIG.products.minimalistSketches, 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=600&h=800'),
-      'https://images.unsplash.com/photo-1582561924811-71c32f7d1219?q=80&w=600&h=800'
+      getImage(IMAGE_CONFIG.products.minimalistSketches, '/images/sketch/hero_mood_sketch.jpeg'),
     ],
     sizes: ['12x16"', '16x20"'],
-    material: 'Archival Paper',
+    material: 'Sketch',
     inStock: true,
     trending: true
   }

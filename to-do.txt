@@ -130,3 +130,7 @@ also fix the "10K+" make it equal in font size
 5: hero section mlabel shi krna h  [Done]
 
 6: Added teh manual scrol control option so that i can see the product of my own
+
+7: Added the wishlist feature [Done]
+
+8: add the ss taken images from the pushpraj instagram
