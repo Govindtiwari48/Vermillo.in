@@ -56,9 +56,9 @@ export default function CollectionPage({ params }: { params: { slug: string } })
   }, [selectedCategory, sortBy, priceRange, params.slug]);
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-light py-16">
+      <div className="bg-gradient-light py-20 pt-6 md:pt-8">
         <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,10 +66,10 @@ export default function CollectionPage({ params }: { params: { slug: string } })
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-5xl md:text-6xl serif font-bold text-charcoal mb-4">
+            {/* <div className="text-5xl md:text-6xl serif font-bold text-charcoal mb-6 leading-tight">
               {collectionTitle}
-            </h1>
-            <p className="text-charcoal/60 text-lg max-w-2xl mx-auto">
+            </div> */}
+            <p className="text-charcoal/60 text-lg max-w-3xl mx-auto leading-relaxed">
               Explore our carefully curated selection of {filteredProducts.length} pieces
             </p>
           </motion.div>
@@ -77,11 +77,11 @@ export default function CollectionPage({ params }: { params: { slug: string } })
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto py-12" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
+      <div className="mx-auto py-14" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         <div className="flex gap-8">
           {/* Filters Sidebar */}
           <div className={`${showFilters ? 'block' : 'hidden'} lg:block w-full lg:w-64 flex-shrink-0`}>
-            <div className="sticky top-28 space-y-8">
+            <div className="sticky top-32 space-y-8">
               <div>
                 <h3 className="font-semibold text-charcoal mb-4">Category</h3>
                 <div className="space-y-2">
@@ -153,7 +153,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
                 <p className="text-charcoal/60 text-lg">No products found matching your filters.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
                 {filteredProducts.map((product, index) => (
                   <motion.div
                     key={product.id}

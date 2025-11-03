@@ -7,17 +7,17 @@ import { collections } from '@/lib/mockData';
 
 export default function CollectionsPage() {
     return (
-        <div className="min-h-screen bg-cream pt-32 pb-20">
-            <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
+        <div className="min-h-screen bg-cream pb-20">
+            <div className="mx-auto pt-6 md:pt-8" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl serif font-semibold text-charcoal mb-6">
+                    {/* <div className="text-4xl md:text-5xl lg:text-6xl serif font-semibold text-charcoal mb-6">
                         All Collections
-                    </h1>
+                    </div> */}
                     <p className="text-charcoal/70 max-w-2xl mx-auto text-lg">
                         Explore our complete range of curated artisanal collections
                     </p>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Menu, X, Heart } from 'lucide-react';
@@ -13,6 +13,7 @@ export default function Navigation() {
   const [showLogo, setShowLogo] = useState(false);
   const { cartCount, toggleCart } = useCart();
   const { wishlistCount } = useWishlist();
+  const navRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,9 +33,32 @@ export default function Navigation() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Measure nav height and expose via CSS var for global top padding
+  useEffect(() => {
+    const updateNavHeightVariable = () => {
+      const navEl = navRef.current;
+      if (!navEl) return;
+      const height = navEl.offsetHeight;
+      document.documentElement.style.setProperty('--nav-height', `${height}px`);
+    };
+
+    // Set immediately on mount
+    updateNavHeightVariable();
+    
+    // Also set after a small delay to ensure it's captured after any animations
+    const timeoutId = setTimeout(updateNavHeightVariable, 100);
+    
+    window.addEventListener('resize', updateNavHeightVariable);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', updateNavHeightVariable);
+    };
+  }, []);
+
   return (
     <>
       <motion.nav
+        ref={navRef as any}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md"

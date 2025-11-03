@@ -58,9 +58,9 @@ export default function CheckoutPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center">
+      <div className="min-h-screen pt-6 md:pt-8 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-3xl serif font-bold text-charcoal mb-4">Your cart is empty</h1>
+          <p className="text-3xl serif font-bold text-charcoal mb-4">Your cart is empty</p>
           <Button onClick={() => (window.location.href = '/collections/all')}>
             Continue Shopping
           </Button>
@@ -70,8 +70,8 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-light">
-      <div className="mx-auto max-w-6xl" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
+    <div className="min-h-screen pb-16 bg-gradient-light">
+      <div className="mx-auto max-w-6xl pt-6 md:pt-8" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
         {/* Progress Bar */}
         <div className="mb-12">
           <div className="flex items-center justify-between">

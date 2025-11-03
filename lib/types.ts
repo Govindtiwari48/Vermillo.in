@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   price: number;
   description: string;
-  category: 'art' | 'clothing' | 'accessories';
+  category: 'painting' | 'sketch' | 'bag' | 'shoe' | 'art-wear';
   images: string[];
   sizes?: string[];
   colors?: { name: string; hex: string }[];

@@ -4,19 +4,35 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Heart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ShoppingBag, Heart, Zap } from 'lucide-react';
 import { Product } from '@/lib/types';
 import { useCart } from '@/lib/cartContext';
+import { useWishlist } from '@/lib/wishlistContext';
 
 interface ProductCardProps {
   product: Product;
 }
 
+// Helper function to format category names for display
+const formatCategory = (category: string): string => {
+  const categoryMap: Record<string, string> = {
+    'painting': 'Painting',
+    'sketch': 'Sketch',
+    'bag': 'BAG',
+    'shoe': 'Shoes',
+    'art-wear': 'Art Wear'
+  };
+  return categoryMap[category] || category.charAt(0).toUpperCase() + category.slice(1);
+};
+
 export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
+  const router = useRouter();
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const isLiked = isInWishlist(product.id);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -27,13 +43,24 @@ export default function ProductCard({ product }: ProductCardProps) {
   const handleLike = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsLiked(!isLiked);
+    if (isLiked) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
+  };
+
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product, 1);
+    router.push('/checkout');
   };
 
   return (
     <Link href={`/products/${product.id}`}>
       <motion.div
-        className="group relative overflow-hidden bg-warm-white transition-all duration-500"
+        className="group relative overflow-hidden bg-warm-white transition-all duration-500 h-full flex flex-col"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
           setIsHovered(false);
@@ -47,7 +74,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         }}
       >
         {/* Image Container */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-soft-beige">
+        <div className="relative aspect-[3/4] overflow-hidden bg-soft-beige flex-shrink-0">
           <Image
             src={product.images[currentImage]}
             alt={product.name}
@@ -81,7 +108,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
 
           {/* Action Buttons */}
-          <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
             <AnimatePresence>
               {isHovered && (
                 <>
@@ -114,6 +141,17 @@ export default function ProductCard({ product }: ProductCardProps) {
                   >
                     <ShoppingBag size={18} strokeWidth={1.5} />
                   </motion.button>
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, x: 20 }}
+                    transition={{ duration: 0.2, delay: 0.1 }}
+                    onClick={handleBuyNow}
+                    className="w-11 h-11 flex items-center justify-center bg-sage text-cream rounded-full backdrop-blur-md hover:bg-sage/90 transition-all"
+                    aria-label="Buy now"
+                  >
+                    <Zap size={18} strokeWidth={1.5} />
+                  </motion.button>
                 </>
               )}
             </AnimatePresence>
@@ -140,13 +178,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Product Info */}
-        <div className="p-6">
+        <div className="p-6 flex-1 flex flex-col">
           <div className="mb-3">
             <span className="text-xs text-charcoal/50 uppercase tracking-wider font-semibold">
-              {product.category}
+              {formatCategory(product.category)}
             </span>
           </div>
-          <h3 className="serif text-xl font-semibold text-charcoal mb-3 group-hover:text-terracotta transition-colors leading-snug">
+          <h3 className="serif text-xl font-semibold text-charcoal mb-3 group-hover:text-terracotta transition-colors leading-snug line-clamp-2 min-h-[3.25rem]">
             {product.name}
           </h3>
           <div className="flex items-center justify-between mb-1">
@@ -176,6 +214,47 @@ export default function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
           )}
+
+          {/* Action Buttons - Always visible on mobile, visible on hover for desktop */}
+          <div className="mt-4 flex gap-2 lg:hidden">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleLike(e);
+              }}
+              className={`flex-1 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center justify-center gap-2 ${
+                isLiked
+                  ? 'bg-terracotta text-cream'
+                  : 'bg-cream text-charcoal border border-charcoal/20 hover:bg-charcoal/5'
+              }`}
+            >
+              <Heart size={16} strokeWidth={1.5} fill={isLiked ? 'currentColor' : 'none'} />
+              {isLiked ? 'Liked' : 'Like'}
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleQuickAdd(e);
+              }}
+              className="flex-1 px-4 py-2 bg-terracotta text-cream rounded-lg hover:bg-rust transition-all text-sm font-medium flex items-center justify-center gap-2"
+            >
+              <ShoppingBag size={16} strokeWidth={1.5} />
+              Add to Cart
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleBuyNow(e);
+              }}
+              className="flex-1 px-4 py-2 bg-sage text-cream rounded-lg hover:bg-sage/90 transition-all text-sm font-medium flex items-center justify-center gap-2"
+            >
+              <Zap size={16} strokeWidth={1.5} />
+              Buy Now
+            </button>
+          </div>
         </div>
       </motion.div>
     </Link>

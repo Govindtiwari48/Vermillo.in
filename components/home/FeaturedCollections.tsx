@@ -11,20 +11,21 @@ export default function FeaturedCollections() {
   // Left image: 700px (350px * 2), Right grid: 350px height per item
 
   return (
-    <section className="-mt-32 mb-[1cm]">
+    <section className="mb-[1cm] pt-[calc(var(--nav-height,4rem)+0.5rem)]">
       <div className="mx-auto" style={{ paddingLeft: '0.25cm', paddingRight: '0.25cm' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center"
-          style={{ paddingTop: '28px', paddingBottom: '28px' }}
-        >
-          <h2 className="text-black uppercase tracking-[0.2em] !font-sans leading-tight" style={{ fontSize: '1.125rem', fontWeight: 800 }}>
+        {/* Section heading */}
+        <div className="text-center" style={{ paddingTop: '28px', paddingBottom: '28px' }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="text-black uppercase tracking-[0.2em] !font-sans leading-tight"
+            style={{ fontSize: '1.125rem', fontWeight: 800 }}
+          >
             FEATURED COLLECTIONS
-          </h2>
-        </motion.div>
+          </motion.h2>
+        </div>
 
         {/* Main Grid Layout - Properly aligned structure */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -36,7 +37,7 @@ export default function FeaturedCollections() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-1"
           >
-            <Link href="/collections">
+            <Link href="/collections/customized">
               <motion.div
                 className="group relative overflow-hidden"
                 style={{

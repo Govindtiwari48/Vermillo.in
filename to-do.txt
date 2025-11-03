@@ -129,8 +129,14 @@ also fix the "10K+" make it equal in font size
 
 5: hero section mlabel shi krna h  [Done]
 
-6: Added teh manual scrol control option so that i can see the product of my own
+6: Added teh manual scrol control option so that i can see the product of my own [Done]
 
 7: Added the wishlist feature [Done]
 
-8: add the ss taken images from the pushpraj instagram
+8: add the ss taken images from the pushpraj instagram [Done]
+
+9: remove eye image [Done]
+10: PAinting section m sketches bhi show krado, and make sure inside that pafe we can show the category of both sketch and painting [Done]
+id, 4,6,9,11
+
+11: Fix the font of each of the page and make it professional

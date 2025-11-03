@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+  /* Navigation Height - Default to 64px (4rem) matching h-16 */
+  --nav-height: 64px;
+
   /* Black, Beige, White Color Palette */
   --color-cream: #FFFFFF;
   --color-warm-white: #FAFAFA;

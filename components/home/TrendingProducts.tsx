@@ -7,6 +7,18 @@ import { products } from '@/lib/mockData';
 import { useWishlist } from '@/lib/wishlistContext';
 import { useEffect, useRef } from 'react';
 
+// Helper function to format category names for display
+const formatCategory = (category: string): string => {
+  const categoryMap: Record<string, string> = {
+    'painting': 'Painting',
+    'sketch': 'Sketch',
+    'bag': 'BAG',
+    'shoe': 'Shoes',
+    'art-wear': 'Art Wear'
+  };
+  return categoryMap[category] || category.charAt(0).toUpperCase() + category.slice(1);
+};
+
 export default function TrendingProducts() {
   const trendingProducts = products.filter((p) => p.trending);
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -447,8 +459,8 @@ export default function TrendingProducts() {
                           <span className="text-sm font-bold text-terracotta">
                             ${product.price}
                           </span>
-                          <span className="text-xs text-gray-500 uppercase tracking-wide">
-                            {product.category}
+                          <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">
+                            {formatCategory(product.category)}
                           </span>
                         </div>
                       </div>

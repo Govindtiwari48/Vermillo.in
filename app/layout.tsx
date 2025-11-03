@@ -47,7 +47,7 @@ export default function RootLayout({
           <WishlistProvider>
             <ClientLayout>
               <Navigation />
-              <main>{children}</main>
+              <main style={{ paddingTop: 'var(--nav-height, 4rem)' }}>{children}</main>
               <Footer />
               <CartSidebar />
             </ClientLayout>
