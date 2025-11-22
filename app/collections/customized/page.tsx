@@ -191,7 +191,7 @@ export default function CustomizedCollectionPage() {
 
                 {/* Items Grid/List */}
                 {viewMode === 'grid' ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-14 lg:gap-x-10 lg:gap-y-16 mt-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-8 lg:gap-x-6 lg:gap-y-10 mt-12">
                         {items.map((item, index) => {
                             const isLiked = isInWishlist(item.id);
                             const isHovered = hoveredItemId === item.id;
@@ -206,7 +206,7 @@ export default function CustomizedCollectionPage() {
                                 >
                                     <Link href={`/products/${item.id}`}>
                                         <div className="group relative overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-lg h-full flex flex-col">
-                                            <div className="relative aspect-[3/4] overflow-hidden">
+                                            <div className="relative aspect-[5/6] overflow-hidden">
                                                 <Image
                                                     src={item.image}
                                                     alt={item.name}
@@ -265,11 +265,11 @@ export default function CustomizedCollectionPage() {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="p-4 flex-1 flex flex-col">
-                                                <h3 className="font-semibold text-charcoal mb-2 group-hover:text-terracotta transition-colors line-clamp-2 min-h-[2.5rem]">
+                                            <div className="px-2.5 pb-2.5 flex flex-col" style={{ paddingTop: '0.875rem' }}>
+                                                <h3 className="font-medium text-gray-900 leading-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
                                                     {item.name}
                                                 </h3>
-                                                <p className="text-xl font-bold text-charcoal mt-auto mb-2">
+                                                <p className="text-sm font-bold text-terracotta" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em' }}>
                                                     ${item.price}
                                                 </p>
                                                 
@@ -331,14 +331,14 @@ export default function CustomizedCollectionPage() {
                                                 />
                                             </div>
                                             <div className="flex-1 p-6 flex flex-col justify-center">
-                                                <h3 className="text-xl font-semibold text-charcoal mb-2 group-hover:text-terracotta transition-colors">
+                                                <h3 className="font-medium text-gray-900 mb-2 leading-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em', fontSize: '0.8rem' }}>
                                                     {item.name}
                                                 </h3>
-                                                <p className="text-charcoal/60 mb-4">
+                                                <p className="text-xs text-gray-600 mb-4 line-clamp-2 leading-relaxed" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em' }}>
                                                     Handcrafted artisanal piece from our collection
                                                 </p>
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <p className="text-2xl font-bold text-charcoal">
+                                                    <p className="text-sm font-bold text-terracotta" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em' }}>
                                                         ${item.price}
                                                     </p>
                                                     <div className="flex gap-2">
