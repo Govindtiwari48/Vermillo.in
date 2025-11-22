@@ -81,6 +81,11 @@ export default function ShipmentPage() {
                 </h2>
                 <p className="text-charcoal/70 mb-4">
                   Your order details have been prepared. Click the button below to send them via WhatsApp for final confirmation.
+                  {whatsappUrl && whatsappUrl.includes('UPI') && (
+                    <span className="block mt-2 text-sm text-terracotta font-medium">
+                      ⚠️ If you paid via UPI, please share your payment screenshot in the WhatsApp chat for confirmation.
+                    </span>
+                  )}
                 </p>
                 <Button
                   onClick={handleWhatsAppClick}

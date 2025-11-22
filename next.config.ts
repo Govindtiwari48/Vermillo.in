@@ -13,10 +13,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Disable SSL verification for development (only for external image fetching)
-  experimental: {
-    serverComponentsExternalPackages: [],
-  },
+  // External packages for server components
+  serverExternalPackages: [],
   // Add custom headers for image optimization
   async headers() {
     return [

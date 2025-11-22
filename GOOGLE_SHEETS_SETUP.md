@@ -14,7 +14,7 @@ This guide will walk you through setting up Google Sheets to automatically save 
 
 1. Go to [Google Sheets](https://sheets.google.com)
 2. Click **Blank** to create a new spreadsheet
-3. Name it something like "Artisan Collective Orders" or "Store Orders"
+3. Name it something like "Vermillo Orders" or "Store Orders"
 4. **Copy the Spreadsheet ID from the URL**:
    - The URL will look like: `https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_HERE/edit`
    - Copy the part between `/d/` and `/edit`

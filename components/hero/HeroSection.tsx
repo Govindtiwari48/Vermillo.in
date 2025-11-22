@@ -295,7 +295,7 @@ export default function HeroSection() {
               >
                 {/* Multiple iterations for seamless scroll */}
                 {Array(4).fill(0).map((_, i) => (
-                  <div key={i} className="flex items-center gap-8 px-4">
+                  <div key={i} className="flex items-center gap-8 px-6">
                     <span className="text-white text-sm md:text-base font-semibold">
                       <span style={{ color: '#FF6600' }}>MADE IN INDIA </span>
                       <span className="text-white ml-2">FOR THE WORLD</span>

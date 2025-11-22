@@ -5,7 +5,7 @@
  * 
  * SETUP INSTRUCTIONS:
  * 1. Open Google Sheets and create a new spreadsheet
- * 2. Name it "Artisan Collective Orders" (or your preferred name)
+ * 2. Name it "Vermillo Orders" (or your preferred name)
  * 3. Go to Extensions > Apps Script
  * 4. Delete the default code and paste this entire file
  * 5. Update the SPREADSHEET_ID variable below with your spreadsheet ID

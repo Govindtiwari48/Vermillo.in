@@ -447,12 +447,12 @@ export default function TrendingProducts() {
                     </motion.button>
 
                     {/* Product Info Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3">
-                        <h3 className="font-semibold text-sm text-gray-900 mb-1 truncate">
+                    <div className="absolute bottom-0 left-0 right-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ padding: '20px' }}>
+                      <div className="bg-white/95 backdrop-blur-sm rounded-lg" style={{ padding: '20px 24px' }}>
+                        <h3 className="font-medium text-gray-900 mb-2 leading-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em', fontSize: '0.7rem' }}>
                           {product.name}
                         </h3>
-                        <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                        <p className="text-xs text-gray-600 mb-3 line-clamp-2 leading-relaxed" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.01em' }}>
                           {product.description}
                         </p>
                         <div className="flex items-center justify-between">

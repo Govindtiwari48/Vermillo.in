@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Phone, MapPin, Mail, User, CreditCard, Package, AlertCircle } from 'lucide-react';
+import { Check, Phone, MapPin, Mail, User, CreditCard, Package, AlertCircle, Upload, IndianRupee, Wallet } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
 import Button from '@/components/ui/Button';
 import Image from 'next/image';
@@ -23,10 +23,27 @@ interface ShippingInfo {
 }
 
 interface PaymentInfo {
+  method: 'COD' | 'UPI' | 'CARD';
   cardNumber: string;
   expiryDate: string;
   cvv: string;
   cardName: string;
+  upiId?: string;
+  paymentScreenshot?: string;
+}
+
+interface SavedAddress {
+  id: string;
+  isDefault: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
 }
 
 interface FormErrors {
@@ -53,11 +70,20 @@ export default function CheckoutPage() {
   });
 
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({
+    method: 'COD',
     cardNumber: '',
     expiryDate: '',
     cvv: '',
     cardName: '',
+    upiId: '',
+    paymentScreenshot: '',
   });
+
+  const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
+  const [selectedAddressId, setSelectedAddressId] = useState<string>('');
+  const [saveAddress, setSaveAddress] = useState(false);
+  const [isUploadingScreenshot, setIsUploadingScreenshot] = useState(false);
+  const upiId = process.env.NEXT_PUBLIC_UPI_ID || 'your-upi-id@paytm';
 
   const steps: { id: Step; label: string; icon: typeof User }[] = [
     { id: 'shipping', label: 'Shipping', icon: MapPin },
@@ -69,6 +95,83 @@ export default function CheckoutPage() {
   const shippingCost = 15;
   const tax = cartTotal * 0.08;
   const total = cartTotal + shippingCost + tax;
+
+  // Load saved addresses when email is entered
+  useEffect(() => {
+    const loadAddresses = async () => {
+      if (shippingInfo.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(shippingInfo.email)) {
+        try {
+          const response = await fetch(`/api/addresses?email=${encodeURIComponent(shippingInfo.email)}`);
+          if (response.ok) {
+            const data = await response.json();
+            setSavedAddresses(data.addresses || []);
+            
+            // Auto-select default address if available
+            const defaultAddr = data.addresses?.find((addr: SavedAddress) => addr.isDefault);
+            if (defaultAddr) {
+              setSelectedAddressId(defaultAddr.id);
+              loadAddressIntoForm(defaultAddr);
+            }
+          }
+        } catch (error) {
+          console.error('Error loading addresses:', error);
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(loadAddresses, 500); // Debounce
+    return () => clearTimeout(timeoutId);
+  }, [shippingInfo.email]);
+
+  const loadAddressIntoForm = (address: SavedAddress) => {
+    setShippingInfo({
+      firstName: address.firstName,
+      lastName: address.lastName,
+      email: address.email,
+      phone: address.phone,
+      address: address.address,
+      city: address.city,
+      state: address.state,
+      zipCode: address.zipCode,
+      country: address.country,
+    });
+  };
+
+  const handleAddressSelect = (addressId: string) => {
+    setSelectedAddressId(addressId);
+    const address = savedAddresses.find((addr) => addr.id === addressId);
+    if (address) {
+      loadAddressIntoForm(address);
+    }
+  };
+
+  const handleScreenshotUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingScreenshot(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPaymentInfo({ ...paymentInfo, paymentScreenshot: data.url });
+      } else {
+        setErrors({ ...errors, screenshot: 'Failed to upload screenshot' });
+      }
+    } catch (error) {
+      console.error('Error uploading screenshot:', error);
+      setErrors({ ...errors, screenshot: 'Failed to upload screenshot' });
+    } finally {
+      setIsUploadingScreenshot(false);
+    }
+  };
 
   const validateShipping = (): boolean => {
     const newErrors: FormErrors = {};
@@ -98,21 +201,27 @@ export default function CheckoutPage() {
   const validatePayment = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (!paymentInfo.cardNumber.trim()) {
-      newErrors.cardNumber = 'Card number is required';
-    } else if (!/^\d{13,19}$/.test(paymentInfo.cardNumber.replace(/\s/g, ''))) {
-      newErrors.cardNumber = 'Invalid card number';
-    }
-    if (!paymentInfo.cardName.trim()) newErrors.cardName = 'Name on card is required';
-    if (!paymentInfo.expiryDate.trim()) {
-      newErrors.expiryDate = 'Expiry date is required';
-    } else if (!/^\d{2}\/\d{2}$/.test(paymentInfo.expiryDate)) {
-      newErrors.expiryDate = 'Invalid format (MM/YY)';
-    }
-    if (!paymentInfo.cvv.trim()) {
-      newErrors.cvv = 'CVV is required';
-    } else if (!/^\d{3,4}$/.test(paymentInfo.cvv)) {
-      newErrors.cvv = 'Invalid CVV';
+    if (paymentInfo.method === 'CARD') {
+      if (!paymentInfo.cardNumber.trim()) {
+        newErrors.cardNumber = 'Card number is required';
+      } else if (!/^\d{13,19}$/.test(paymentInfo.cardNumber.replace(/\s/g, ''))) {
+        newErrors.cardNumber = 'Invalid card number';
+      }
+      if (!paymentInfo.cardName.trim()) newErrors.cardName = 'Name on card is required';
+      if (!paymentInfo.expiryDate.trim()) {
+        newErrors.expiryDate = 'Expiry date is required';
+      } else if (!/^\d{2}\/\d{2}$/.test(paymentInfo.expiryDate)) {
+        newErrors.expiryDate = 'Invalid format (MM/YY)';
+      }
+      if (!paymentInfo.cvv.trim()) {
+        newErrors.cvv = 'CVV is required';
+      } else if (!/^\d{3,4}$/.test(paymentInfo.cvv)) {
+        newErrors.cvv = 'Invalid CVV';
+      }
+    } else if (paymentInfo.method === 'UPI') {
+      if (!paymentInfo.paymentScreenshot) {
+        newErrors.screenshot = 'Please upload payment screenshot';
+      }
     }
 
     setErrors(newErrors);
@@ -167,8 +276,14 @@ export default function CheckoutPage() {
   const generateWhatsAppMessage = (): string => {
     const orderItems = cart.map((item) => {
       const itemTotal = (item.product.price * item.quantity).toFixed(2);
-      return `• ${item.product.name} (Qty: ${item.quantity}) - $${itemTotal}`;
+      return `• ${item.product.name} (Qty: ${item.quantity}) - ₹${itemTotal}`;
     }).join('\n');
+
+    const paymentMethodText = paymentInfo.method === 'COD' 
+      ? 'Cash on Delivery (COD)' 
+      : paymentInfo.method === 'UPI' 
+      ? `UPI Payment\nPayment Screenshot: ${paymentInfo.paymentScreenshot ? 'Uploaded ✅' : 'Not uploaded'}\nPlease share payment screenshot for confirmation.`
+      : 'Card Payment';
 
     return `*Order Details*\n\n` +
       `*Customer Information:*\n` +
@@ -181,10 +296,11 @@ export default function CheckoutPage() {
       `${shippingInfo.country}\n\n` +
       `*Order Items:*\n${orderItems}\n\n` +
       `*Order Summary:*\n` +
-      `Subtotal: $${cartTotal.toFixed(2)}\n` +
-      `Shipping: $${shippingCost.toFixed(2)}\n` +
-      `Tax: $${tax.toFixed(2)}\n` +
-      `*Total: $${total.toFixed(2)}*`;
+      `Subtotal: ₹${cartTotal.toFixed(2)}\n` +
+      `Shipping: ₹${shippingCost.toFixed(2)}\n` +
+      `Tax: ₹${tax.toFixed(2)}\n` +
+      `*Total: ₹${total.toFixed(2)}*\n\n` +
+      `*Payment Method:* ${paymentMethodText}`;
   };
 
   const handleSubmitOrder = async () => {
@@ -192,7 +308,24 @@ export default function CheckoutPage() {
     setErrors({});
 
     try {
-      // Store order data in Google Sheets
+      // Save address if user opted to save
+      if (saveAddress && shippingInfo.email) {
+        try {
+          await fetch('/api/addresses', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: shippingInfo.email,
+              ...shippingInfo,
+              isDefault: savedAddresses.length === 0, // Make default if first address
+            }),
+          });
+        } catch (error) {
+          console.error('Error saving address:', error);
+        }
+      }
+
+      // Store order data
       const orderData = {
         timestamp: new Date().toISOString(),
         orderId: `ORD-${Date.now()}`,
@@ -218,6 +351,8 @@ export default function CheckoutPage() {
           tax: tax,
           total: total,
         },
+        paymentMethod: paymentInfo.method,
+        paymentScreenshot: paymentInfo.paymentScreenshot,
       };
 
       // Save to Google Sheets
@@ -235,9 +370,8 @@ export default function CheckoutPage() {
 
       // Generate WhatsApp URL
       const whatsappMessage = encodeURIComponent(generateWhatsAppMessage());
-      // Replace with your WhatsApp number (format: country code + number without + or 0)
-      // Example: 1234567890 for +1 (234) 567-890
-      const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '1234567890';
+      // WhatsApp number: +91 9369410502
+      const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919369410502';
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
       // Clear cart
@@ -415,6 +549,28 @@ export default function CheckoutPage() {
                       )}
                     </div>
 
+                    {/* Saved Addresses Dropdown */}
+                    {savedAddresses.length > 0 && (
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-charcoal mb-2">
+                          Saved Addresses
+                        </label>
+                        <select
+                          value={selectedAddressId}
+                          onChange={(e) => handleAddressSelect(e.target.value)}
+                          className="w-full p-3 border border-charcoal/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-terracotta/20 focus:border-terracotta"
+                        >
+                          <option value="">Select a saved address...</option>
+                          {savedAddresses.map((addr) => (
+                            <option key={addr.id} value={addr.id}>
+                              {addr.address}, {addr.city}, {addr.state} {addr.zipCode} {addr.isDefault ? '(Default)' : ''}
+                            </option>
+                          ))}
+                        </select>
+                        <p className="text-xs text-charcoal/60 mt-1">Or fill the form below to enter a new address</p>
+                      </div>
+                    )}
+
                     <div>
                       <label className="block text-sm font-medium text-charcoal mb-2">
                         Phone Number <span className="text-red-500">*</span>
@@ -570,6 +726,20 @@ export default function CheckoutPage() {
                         </p>
                       )}
                     </div>
+
+                    {/* Save Address Checkbox */}
+                    <div className="md:col-span-2 flex items-center gap-2 mt-2">
+                      <input
+                        type="checkbox"
+                        id="saveAddress"
+                        checked={saveAddress}
+                        onChange={(e) => setSaveAddress(e.target.checked)}
+                        className="w-4 h-4 text-terracotta border-charcoal/20 rounded focus:ring-terracotta"
+                      />
+                      <label htmlFor="saveAddress" className="text-sm text-charcoal/70 cursor-pointer">
+                        Save this address for future orders
+                      </label>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -587,119 +757,239 @@ export default function CheckoutPage() {
                     <h2 className="text-2xl serif font-bold text-charcoal">Payment Information</h2>
                   </div>
 
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal mb-2">
-                        Card Number <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="1234 5678 9012 3456"
-                        value={paymentInfo.cardNumber}
-                        onChange={(e) => {
-                          const formatted = formatCardNumber(e.target.value);
-                          setPaymentInfo({ ...paymentInfo, cardNumber: formatted });
-                          if (errors.cardNumber) setErrors({ ...errors, cardNumber: '' });
-                        }}
-                        maxLength={19}
-                        className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                          errors.cardNumber
-                            ? 'border-red-500 focus:ring-red-500/20'
-                            : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
+                  {/* Payment Method Selection */}
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-charcoal mb-3">
+                      Payment Method <span className="text-red-500">*</span>
+                    </label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {/* COD Option */}
+                      <button
+                        type="button"
+                        onClick={() => setPaymentInfo({ ...paymentInfo, method: 'COD' })}
+                        className={`p-4 border-2 rounded-lg text-left transition-all ${
+                          paymentInfo.method === 'COD'
+                            ? 'border-terracotta bg-terracotta/10'
+                            : 'border-charcoal/20 hover:border-terracotta/50'
                         }`}
-                      />
-                      {errors.cardNumber && (
-                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                          <AlertCircle size={12} />
-                          {errors.cardNumber}
-                        </p>
-                      )}
-                    </div>
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <Wallet size={20} className={paymentInfo.method === 'COD' ? 'text-terracotta' : 'text-charcoal/60'} />
+                          <span className="font-semibold text-charcoal">Cash on Delivery</span>
+                        </div>
+                        <p className="text-xs text-charcoal/60">Pay when you receive</p>
+                      </button>
 
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal mb-2">
-                        Name on Card <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="John Doe"
-                        value={paymentInfo.cardName}
-                        onChange={(e) => {
-                          setPaymentInfo({ ...paymentInfo, cardName: e.target.value });
-                          if (errors.cardName) setErrors({ ...errors, cardName: '' });
-                        }}
-                        className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                          errors.cardName
-                            ? 'border-red-500 focus:ring-red-500/20'
-                            : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
+                      {/* UPI Option */}
+                      <button
+                        type="button"
+                        onClick={() => setPaymentInfo({ ...paymentInfo, method: 'UPI' })}
+                        className={`p-4 border-2 rounded-lg text-left transition-all ${
+                          paymentInfo.method === 'UPI'
+                            ? 'border-terracotta bg-terracotta/10'
+                            : 'border-charcoal/20 hover:border-terracotta/50'
                         }`}
-                      />
-                      {errors.cardName && (
-                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                          <AlertCircle size={12} />
-                          {errors.cardName}
-                        </p>
-                      )}
-                    </div>
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <IndianRupee size={20} className={paymentInfo.method === 'UPI' ? 'text-terracotta' : 'text-charcoal/60'} />
+                          <span className="font-semibold text-charcoal">UPI Payment</span>
+                        </div>
+                        <p className="text-xs text-charcoal/60">Pay via UPI apps</p>
+                      </button>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-2">
-                          Expiry Date <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="MM/YY"
-                          value={paymentInfo.expiryDate}
-                          onChange={(e) => {
-                            const formatted = formatExpiryDate(e.target.value);
-                            setPaymentInfo({ ...paymentInfo, expiryDate: formatted });
-                            if (errors.expiryDate) setErrors({ ...errors, expiryDate: '' });
-                          }}
-                          maxLength={5}
-                          className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                            errors.expiryDate
-                              ? 'border-red-500 focus:ring-red-500/20'
-                              : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
-                          }`}
-                        />
-                        {errors.expiryDate && (
-                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                            <AlertCircle size={12} />
-                            {errors.expiryDate}
-                          </p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-2">
-                          CVV <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="123"
-                          value={paymentInfo.cvv}
-                          onChange={(e) => {
-                            const value = e.target.value.replace(/\D/g, '').slice(0, 4);
-                            setPaymentInfo({ ...paymentInfo, cvv: value });
-                            if (errors.cvv) setErrors({ ...errors, cvv: '' });
-                          }}
-                          maxLength={4}
-                          className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                            errors.cvv
-                              ? 'border-red-500 focus:ring-red-500/20'
-                              : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
-                          }`}
-                        />
-                        {errors.cvv && (
-                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                            <AlertCircle size={12} />
-                            {errors.cvv}
-                          </p>
-                        )}
-                      </div>
+                      {/* Card Option */}
+                      <button
+                        type="button"
+                        onClick={() => setPaymentInfo({ ...paymentInfo, method: 'CARD' })}
+                        className={`p-4 border-2 rounded-lg text-left transition-all ${
+                          paymentInfo.method === 'CARD'
+                            ? 'border-terracotta bg-terracotta/10'
+                            : 'border-charcoal/20 hover:border-terracotta/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <CreditCard size={20} className={paymentInfo.method === 'CARD' ? 'text-terracotta' : 'text-charcoal/60'} />
+                          <span className="font-semibold text-charcoal">Card Payment</span>
+                        </div>
+                        <p className="text-xs text-charcoal/60">Credit/Debit card</p>
+                      </button>
                     </div>
                   </div>
+
+                  {/* UPI Payment Details */}
+                  {paymentInfo.method === 'UPI' && (
+                    <div className="space-y-4 p-4 bg-soft-beige/30 rounded-lg mb-4">
+                      <div>
+                        <p className="text-sm font-medium text-charcoal mb-2">UPI ID: <span className="text-terracotta">{upiId}</span></p>
+                        <p className="text-xs text-charcoal/60 mb-4">Please make payment to the above UPI ID and upload the payment screenshot below.</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-charcoal mb-2">
+                          Payment Screenshot <span className="text-red-500">*</span>
+                        </label>
+                        <div className="border-2 border-dashed border-charcoal/20 rounded-lg p-6 text-center">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleScreenshotUpload}
+                            className="hidden"
+                            id="screenshot-upload"
+                            disabled={isUploadingScreenshot}
+                          />
+                          <label htmlFor="screenshot-upload" className="cursor-pointer">
+                            {paymentInfo.paymentScreenshot ? (
+                              <div className="space-y-2">
+                                <Check className="text-green-600 mx-auto" size={32} />
+                                <p className="text-sm text-green-600 font-medium">Screenshot uploaded!</p>
+                                <p className="text-xs text-charcoal/60">Click to change</p>
+                              </div>
+                            ) : (
+                              <div className="space-y-2">
+                                <Upload className="text-charcoal/40 mx-auto" size={32} />
+                                <p className="text-sm text-charcoal font-medium">
+                                  {isUploadingScreenshot ? 'Uploading...' : 'Click to upload payment screenshot'}
+                                </p>
+                                <p className="text-xs text-charcoal/60">PNG, JPG up to 5MB</p>
+                              </div>
+                            )}
+                          </label>
+                        </div>
+                        {errors.screenshot && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} />
+                            {errors.screenshot}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Card Payment Details */}
+                  {paymentInfo.method === 'CARD' && (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-charcoal mb-2">
+                          Card Number <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="1234 5678 9012 3456"
+                          value={paymentInfo.cardNumber}
+                          onChange={(e) => {
+                            const formatted = formatCardNumber(e.target.value);
+                            setPaymentInfo({ ...paymentInfo, cardNumber: formatted });
+                            if (errors.cardNumber) setErrors({ ...errors, cardNumber: '' });
+                          }}
+                          maxLength={19}
+                          className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                            errors.cardNumber
+                              ? 'border-red-500 focus:ring-red-500/20'
+                              : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
+                          }`}
+                        />
+                        {errors.cardNumber && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} />
+                            {errors.cardNumber}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-charcoal mb-2">
+                          Name on Card <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="John Doe"
+                          value={paymentInfo.cardName}
+                          onChange={(e) => {
+                            setPaymentInfo({ ...paymentInfo, cardName: e.target.value });
+                            if (errors.cardName) setErrors({ ...errors, cardName: '' });
+                          }}
+                          className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                            errors.cardName
+                              ? 'border-red-500 focus:ring-red-500/20'
+                              : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
+                          }`}
+                        />
+                        {errors.cardName && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} />
+                            {errors.cardName}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-2">
+                            Expiry Date <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="MM/YY"
+                            value={paymentInfo.expiryDate}
+                            onChange={(e) => {
+                              const formatted = formatExpiryDate(e.target.value);
+                              setPaymentInfo({ ...paymentInfo, expiryDate: formatted });
+                              if (errors.expiryDate) setErrors({ ...errors, expiryDate: '' });
+                            }}
+                            maxLength={5}
+                            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                              errors.expiryDate
+                                ? 'border-red-500 focus:ring-red-500/20'
+                                : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
+                            }`}
+                          />
+                          {errors.expiryDate && (
+                            <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                              <AlertCircle size={12} />
+                              {errors.expiryDate}
+                            </p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-2">
+                            CVV <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="123"
+                            value={paymentInfo.cvv}
+                            onChange={(e) => {
+                              const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                              setPaymentInfo({ ...paymentInfo, cvv: value });
+                              if (errors.cvv) setErrors({ ...errors, cvv: '' });
+                            }}
+                            maxLength={4}
+                            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                              errors.cvv
+                                ? 'border-red-500 focus:ring-red-500/20'
+                                : 'border-charcoal/20 focus:ring-terracotta/20 focus:border-terracotta'
+                            }`}
+                          />
+                          {errors.cvv && (
+                            <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                              <AlertCircle size={12} />
+                              {errors.cvv}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* COD Info */}
+                  {paymentInfo.method === 'COD' && (
+                    <div className="p-4 bg-soft-beige/30 rounded-lg">
+                      <p className="text-sm text-charcoal">
+                        <strong>Cash on Delivery:</strong> You will pay the order amount when you receive your package. 
+                        Please keep the exact amount ready for the delivery person.
+                      </p>
+                    </div>
+                  )}
                 </motion.div>
               )}
 
@@ -748,9 +1038,25 @@ export default function CheckoutPage() {
                         Payment Method
                       </h3>
                       <p className="text-charcoal/80">
-                        •••• •••• •••• {paymentInfo.cardNumber.slice(-4)}
-                        <br />
-                        {paymentInfo.cardName}
+                        {paymentInfo.method === 'COD' && 'Cash on Delivery (COD)'}
+                        {paymentInfo.method === 'UPI' && (
+                          <>
+                            UPI Payment
+                            {paymentInfo.paymentScreenshot && (
+                              <>
+                                <br />
+                                <span className="text-green-600">✓ Payment screenshot uploaded</span>
+                              </>
+                            )}
+                          </>
+                        )}
+                        {paymentInfo.method === 'CARD' && (
+                          <>
+                            Card: •••• •••• •••• {paymentInfo.cardNumber.slice(-4)}
+                            <br />
+                            {paymentInfo.cardName}
+                          </>
+                        )}
                       </p>
                     </div>
 

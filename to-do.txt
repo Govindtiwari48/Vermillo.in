@@ -140,3 +140,33 @@ also fix the "10K+" make it equal in font size
 id, 4,6,9,11
 
 11: Fix the font of each of the page and make it professional
+12: Align to mid
+13: add Add to cart and Buy Now option [done]
+
+
+save use details, so that they dont need to enter again and again, address and payment way
+
+
+
+
+// Import the functions you need from the SDKs you need //firebase SDK to connect with firebase
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAKiFq-TmGEw5iy7QsdDbzi57KJ8ZVDJQg",
+  authDomain: "vermillo.firebaseapp.com",
+  projectId: "vermillo",
+  storageBucket: "vermillo.firebasestorage.app",
+  messagingSenderId: "544137271576",
+  appId: "1:544137271576:web:482bf9c6a06ef1c3d1e66d",
+  measurementId: "G-3QP72DNWTF"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

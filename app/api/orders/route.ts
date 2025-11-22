@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { db, docToObject } from '@/lib/firebase';
+import { Order, User } from '@/lib/types';
 
 interface OrderData {
   timestamp: string;
@@ -25,11 +27,79 @@ interface OrderData {
     tax: number;
     total: number;
   };
+  paymentMethod?: 'COD' | 'UPI' | 'CARD';
+  paymentScreenshot?: string;
+}
+
+// Helper function to get or create user by email
+async function getOrCreateUser(email: string, phone: string, firstName: string, lastName: string): Promise<string | null> {
+  const usersRef = db.collection('users');
+  const querySnapshot = await usersRef.where('email', '==', email.toLowerCase()).get();
+
+  if (querySnapshot.empty) {
+    // Create new user
+    const newUserRef = usersRef.doc();
+    const now = new Date();
+    const user: User = {
+      id: newUserRef.id,
+      email: email.toLowerCase(),
+      phone,
+      firstName,
+      lastName,
+      createdAt: now,
+      updatedAt: now,
+    };
+    await newUserRef.set(user);
+    return newUserRef.id;
+  } else {
+    return querySnapshot.docs[0].id;
+  }
 }
 
 export async function POST(request: NextRequest) {
   try {
     const orderData: OrderData = await request.json();
+
+    // Save order to Firestore
+    try {
+      // Find or create user
+      let userId: string | null = null;
+      if (orderData.customer.email) {
+        userId = await getOrCreateUser(
+          orderData.customer.email,
+          orderData.customer.phone,
+          orderData.customer.firstName,
+          orderData.customer.lastName
+        );
+      }
+
+      // Save order to Firestore
+      const ordersRef = db.collection('orders');
+      const newOrderRef = ordersRef.doc();
+      const now = new Date();
+
+      const order: Order = {
+        id: newOrderRef.id,
+        orderId: orderData.orderId,
+        userId,
+        customer: orderData.customer,
+        items: orderData.items,
+        summary: orderData.summary,
+        paymentMethod: orderData.paymentMethod || 'CARD',
+        paymentStatus: orderData.paymentMethod === 'COD' ? 'pending' : 'pending',
+        orderStatus: 'pending',
+        paymentScreenshot: orderData.paymentScreenshot,
+        createdAt: now,
+        updatedAt: now,
+      };
+
+      await newOrderRef.set(order);
+
+      console.log('✅ Order saved to Firestore:', orderData.orderId);
+    } catch (firestoreError) {
+      console.error('❌ Error saving to Firestore:', firestoreError);
+      // Continue with Google Sheets even if Firestore fails
+    }
 
     // Get the Google Apps Script Web App URL from environment variable
     const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
@@ -142,4 +212,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
